@@ -1,6 +1,6 @@
 import sqlite3
 import hashlib
-from flask import Flask, redirect, url_for, flash, render_template, request, g
+from flask import Flask, redirect, url_for, flash, render_template, request, g, abort, session
 
 app = Flask(__name__)
 app.config.from_pyfile("config.txt")
@@ -33,6 +33,7 @@ def login():
         if len(result) == 0:
             error = "Username or password incorrect!"
         else:
+            session["loggedIn"] = True
             flash("Log in successful!")
             return redirect(url_for("roomList"));
     return render_template("login.html", error=error)
@@ -62,16 +63,22 @@ def signUp():
     
 @app.route("/room")
 def roomList():
+    if not session.get("loggedIn"):
+        abort(401)
     return render_template("roomlist.html")
 #    return "This is room list"
     
 @app.route("/room/<int:roomID>")
 def room(roomID):
+    if not session.get(loggedIn):
+        abort(401)
     return render_template("room.html", roomID=roomID)
 #    return "This is room ID %d." % roomID
     
 @app.route("/room/create")
 def createRoom():
+    if not session.get(loggedIn):
+        abort(401)
     return render_template("createroom.html")
 #    return "This is create room"
     
