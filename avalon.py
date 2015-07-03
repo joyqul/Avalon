@@ -27,19 +27,24 @@ def login():
  
 @app.route("/signup")
 def signUp():
-    return "This is sign-up page"
+    error = None
+    return render_template("signup.html", error=error)
+#    return "This is sign-up page"
     
 @app.route("/room")
 def roomList():
-    return "This is room list"
+    return render_template("roomlist.html")
+#    return "This is room list"
     
 @app.route("/room/<int:roomID>")
 def room(roomID):
-    return "This is room ID %d." % roomID
+    return render_template("room.html", roomID=roomID)
+#    return "This is room ID %d." % roomID
     
 @app.route("/room/create")
 def createRoom():
-    return "This is create room"
+    return render_template("createroom.html")
+#    return "This is create room"
     
 #@app.route("")
     
