@@ -1,0 +1,30 @@
+html, body {
+    height: 100%; 
+    margin: 0px; 
+    padding: 0px;
+}
+
+body { 
+    position: relative; 
+    top: 50px;
+    font-family: sans-serif; 
+    background: #eee; 
+    text-align: center;
+}
+
+a, h1, h2 { 
+    color: #377ba8; 
+}
+
+h1, h2 { 
+    font-family: 'Georgia', serif; 
+    margin: 10; 
+}
+
+h1 { 
+    border-bottom: 2px solid #eee; 
+}
+
+h2 { 
+    font-size: 1.2em; 
+}

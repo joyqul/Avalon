@@ -1,9 +1,3 @@
-body            { font-family: sans-serif; background: #eee; text-align: center;}
-a, h1, h2       { color: #377ba8; }
-h1, h2          { font-family: 'Georgia', serif; margin: 0; }
-h1              { border-bottom: 2px solid #eee; }
-h2              { font-size: 1.2em; }
-
 .page           { margin: 2em auto; width: 35em; border: 5px solid #ccc;
                   padding: 0.8em; background: white; }
 .entries        { list-style: none; margin: 0; padding: 0; }
@@ -35,10 +29,76 @@ input[type="submit"], input[type="button"]{
     margin-bottom: 10px;
 }
 
-form.center 
-{
+form.center {
     margin-right: auto;
     margin-left: auto;
+}
+
+#navigation {
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .8);
+}
+
+#navigation p {
+    color: #fff;
+    padding-right: 20px;
+    text-align: right;
+}
+
+#container {
+    width: 1366px;
+    height: 80%;
+    margin: 20px auto;
+}
+
+#top {
+    top: 0;
+    float: right;
+    margin:10px;
+    margin-right: 50px;
+}
+
+#context {
+    width: 80%;
+    height: 100%;
+    float: left;
+}
+
+#outerbox {
+    background-color: rgba(0, 255, 0, .2);
+    width: 95%;
+    height: 100px;
+    float: left;
+    margin: 10px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+}
+
+#outerbox h2, #outerbox p {
+    margin: 10px;
+    text-align: left;
+}
+
+#outerbox a {
+    text-align: right;
+}
+
+#sidebar {
+    float: left;
+    width: 20%;
+    height: 600px;
+    background-color: rgba(0, 0, 0, .8);
+    color: #fff;
+}
+
+#sidebar p {
+    margin: 10px;
+    padding: 10px;
+    background-color: rgba(0, 255, 255, .4);
 }
 
 #content label {

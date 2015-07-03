@@ -1,7 +1,20 @@
 {% extends "layout.html" %}
 {% block body %}
-<div id="content">
-    <p> This is room list! </p>
-    <p><a href="{{ url_for('createRoom') }}">Create room</a></p>
+<div id="container">
+    <div id="context">
+        <div id="top">
+            <a href="{{ url_for('createRoom') }}">Create room</a>
+        </div>
+        <div id="outerbox">
+            <h2>Room Name: ABC</h2>
+            <p>Create by: ABC</p>
+            <p>Room ID: #0x123 <a href="{{ url_for('createRoom') }}">Join</a></p>
+        </div>
+    </div>
+    <div id="sidebar">
+        <h2>MYID</h2>
+        <p>Win: 10</p>
+        <p>Lose: 10</p>
+    </div>
 </div>
 {% endblock %}
