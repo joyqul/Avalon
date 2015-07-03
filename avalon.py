@@ -28,16 +28,26 @@ def login():
     error=None
     if request.method == "POST":
         print "login request form : ", request.form["username"] , request.form["password"]
-        result = g.db.execute("select password from users where username=? and password=?", [request.form['username'], hashlib.md5(request.form["password"]).hexdigest()]).fetchall();
+        result = g.db.execute("select id from users where username=? and password=?", [request.form['username'], hashlib.md5(request.form["password"]).hexdigest()]).fetchall();
         print "result : ", result
         if len(result) == 0:
             error = "Username or password incorrect!"
         else:
             session["loggedIn"] = True
+            session["userId"] = result[0]
             flash("Log in successful!")
+            print "User %d logged in" % result[0];
             return redirect(url_for("roomList"));
     return render_template("login.html", error=error)
 #    return "This is log-in page"
+
+@app.route("/logout")
+def logout():
+    if not session.get("loggedIn")
+        abort(401)
+    session.pop("loggedIn", None)
+    flash("You are logged out!")
+    return redirect(url_for("index"))    
  
 @app.route("/signup", methods=["GET", "POST"])
 def signUp():
@@ -61,10 +71,15 @@ def signUp():
     return render_template("signup.html", error=error)
 #    return "This is sign-up page"
     
+rooms = []
+    
 @app.route("/room")
 def roomList():
     if not session.get("loggedIn"):
         abort(401)
+    global rooms;
+    
+    
     return render_template("roomlist.html")
 #    return "This is room list"
     
@@ -75,10 +90,19 @@ def room(roomID):
     return render_template("room.html", roomID=roomID)
 #    return "This is room ID %d." % roomID
     
-@app.route("/room/create")
+@app.route("/room/create", methods = ["GET", "POST"])
 def createRoom():
+    error = None
     if not session.get(loggedIn):
         abort(401)
+    if request.method == "POST":
+        print "roomname : ", request.form["roomname"]
+        nameLen = len(request.form["roomname"])
+        if(nameLen<2 or nameLen>18):
+            error = "Inappropriate length for your room name."
+        else:
+            newItem = {request.form["roomname"], len(rooms), session.get(userId), 0}
+            rooms.append(newItem)
     return render_template("createroom.html")
 #    return "This is create room"
     
