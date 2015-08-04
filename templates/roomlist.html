@@ -10,7 +10,7 @@
                 <h2>{{ rooms[roomId]["name"] }}</h2>
                 <p>Create by: {{ rooms[roomId]["owner"] }}</p>
                 <p>Player: {{ rooms[roomId]["count"] }}</p>
-                <p>Room ID: {{ rooms[roomId]["id"] }} <a href="{{ url_for('room', roomId=roomId }}">Join</a></p>
+                <p>Room ID: {{ rooms[roomId]["id"] }} <a href="{{ url_for('room', roomId=roomId) }}">Join</a></p>
             </div>
         {% endfor %}
     </div>
