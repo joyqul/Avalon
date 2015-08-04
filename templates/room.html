@@ -5,5 +5,10 @@
     {% for player in room["players"] %}
         <p> {{player}} </p>
     {% endfor %}
+    {% if isOwner %}
+    <form action="" method=post class="center">
+    <input type=submit value="START">
+    </form>
+    {% endif %}
 </div>
 {% endblock %}

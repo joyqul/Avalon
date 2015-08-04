@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block body %}
+<div id="content">
+    <p> This is room {{ roomId }} </p>
+    {% for player in room["players"] %}
+        <p> {{player}} </p>
+        {% if isArthur %}
+            <p> Arthur </p>
+        {% endif %}
+        {% if isChosen["{{player}}"] %}
+            <p> On the mission <p>
+        {% endif %}
+    {% endfor %}
+    {% if isOnQuest %}
+        <input type="radio" name="vote" value="succeed"> Succeed <br/>
+        <input type="radio" name="vote" value="failed"> Failed <br/> 
+        <input type=submit value="QUEST">
+        </form>
+    {% else %}
+        <p> Please wait Knight to go on the quest </p>
+    {% endif %}
+</div>
+{% endblock %}

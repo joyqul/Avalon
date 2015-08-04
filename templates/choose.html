@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block body %}
+<div id="content">
+    <p> This is room {{ roomId }} </p>
+    {% for player in room["players"] %}
+        <p> {{player}} </p>
+        {% if isArthur %}
+            <p> Arthur </p>
+        {% endif %}
+    {% endfor %}
+    {% if isHost %}
+        <p> Please choose {{ chooseNumber }} people </p>
+        <form action="" method=post class="center">
+        {% for player in room["players"] %}
+            <input type="checkbox" name="proposal" value="{{player}}"> {{player}} <br/>
+        {% endfor %}
+        <input type=submit value="CHOOSE">
+        </form>
+    {% else %}
+        <p> Please wait Arthur to choose </p>
+    {% endif %}
+</div>
+{% endblock %}
