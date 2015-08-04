@@ -80,17 +80,20 @@ def roomList():
     print result
     win, lose = result[0]
     return render_template("roomlist.html", rooms=rooms, userId=session.get("userId"), win=win, lose=lose)
-    
+
 @app.route("/room/<int:roomId>")
 def room(roomId):
     if not session.get("loggedIn"):
         abort(401)
     print "Enter room %d" % roomId
-    if roomId not in rooms or now["count"] > 10:
+    if roomId not in rooms:
+        return redirect(url_for("roomList"))
+    now = rooms[roomId];
+    if now["count"] > 10:
         return redirect(url_for("roomList"))
     if(session.get("userId") not in now["players"]):
         now["count"] = now["count"] + 1;
-        now["players"].append(session.get(userId))
+        now["players"].append(session.get("userId"))
                 
             
     return render_template("room.html", roomId=roomId)
@@ -106,10 +109,11 @@ def createRoom():
         if(nameLen<2 or nameLen>18):
             error = "Inappropriate length for your room name."
         else:
+            global counter
             newItem = {"name":request.form["roomname"], "id":counter, "owner":session.get("userId"), "count":0, "players":[]}
             rooms[counter] = newItem
             counter += 1
-            return redirect(url_for("room", roomId=newId))
+            return redirect(url_for("room", roomId=newItem["id"]));
     return render_template("createroom.html")
     
 if __name__ == "__main__":
