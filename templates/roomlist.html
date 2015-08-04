@@ -6,12 +6,11 @@
             <a href="{{ url_for('createRoom') }}">Create room</a>
         </div>
         {% for roomId in rooms if rooms[roomId]["count"]<10 %}
-            {% room = rooms[roomId] %}
             <div id="outerbox">
-                <h2>{{ room["name"] }}</h2>
-                <p>Create by: {{ room["owner"] }}</p>
-                <p>Player: {{ room["count"] }}</p>
-                <p>Room ID: {{ room["id"] }} <a href="{{ url_for('room', roomId=room["id"]) }}">Join</a></p>
+                <h2>{{ rooms[roomId]["name"] }}</h2>
+                <p>Create by: {{ rooms[roomId]["owner"] }}</p>
+                <p>Player: {{ rooms[roomId]["count"] }}</p>
+                <p>Room ID: {{ rooms[roomId]["id"] }} <a href="{{ url_for('room', roomId=roomId }}">Join</a></p>
             </div>
         {% endfor %}
     </div>
