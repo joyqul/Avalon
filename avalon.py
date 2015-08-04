@@ -94,10 +94,20 @@ def room(roomId):
     if(session.get("userId") not in now["players"]):
         now["count"] = now["count"] + 1;
         now["players"].append(session.get("userId"))
-                
-            
+    return render_template("room.html", room=now, roomId=roomId)
+
+@app.route("/room/<int:roomId>/choose")
+def choose(roomId):
     return render_template("room.html", roomId=roomId)
     
+@app.route("/room/<int:roomId>/vote")
+def vote(roomId):
+    return render_template("room.html", roomId=roomId)
+    
+@app.route("/room/<int:roomId>/quest")
+def quest(roomId):
+    return render_template("room.html", roomId=roomId)
+
 @app.route("/room/create", methods = ["GET", "POST"])
 def createRoom():
     error = None

@@ -2,7 +2,7 @@
 {% block body %}
 <div id="content">
     <p> This is room {{ roomId }} </p>
-    {% for player in room[roomId]["players"] %}
+    {% for player in rooms[roomId]["players"] %}
         <p> {{player}} </p>
     {% endfor %}
 </div>
