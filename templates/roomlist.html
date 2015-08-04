@@ -5,7 +5,7 @@
         <div id="top">
             <a href="{{ url_for('createRoom') }}">Create room</a>
         </div>
-        {% for roomId in rooms if rooms[roomId]["count"]<10 %}
+        {% for roomId in rooms if rooms[roomId]["count"]<10 and rooms[roomId]["state"]=="prepare" %}
             <div id="outerbox">
                 <h2>{{ rooms[roomId]["name"] }}</h2>
                 <p>Create by: {{ rooms[roomId]["owner"] }}</p>
