@@ -70,12 +70,12 @@ def signUp():
 rooms = {}
 counter = 0
 assignCount = [[2, 3, 2, 3, 3], [2, 3, 4, 3, 4], [2, 3, 3, 4, 4], [3, 4, 4, 5, 5], [3, 4, 4, 5, 5], [3, 4, 4, 5, 5]]   
-roles = [["merlin", "assasin", "servant", "servant", "minion"],\
-      ["merlin", "assasin", "servant", "servant", "minion", "servant"],\
-      ["merlin", "assasin", "servant", "servant", "minion", "morgana", "percival"],\
-      ["merlin", "assasin", "servant", "servant", "minion", "morgana", "percival", "servant"],\
-      ["merlin", "assasin", "servant", "servant", "minion", "morgana", "percival", "servant", "servant"],\
-      ["merlin", "assasin", "servant", "servant", "minion", "morgana", "percival", "servant", "servant", "minion"]]
+roles = [["merlin", "assassin", "servant", "servant", "minion"],\
+      ["merlin", "assassin", "servant", "servant", "minion", "servant"],\
+      ["merlin", "assassin", "servant", "servant", "minion", "morgana", "percival"],\
+      ["merlin", "assassin", "servant", "servant", "minion", "morgana", "percival", "servant"],\
+      ["merlin", "assassin", "servant", "servant", "minion", "morgana", "percival", "servant", "servant"],\
+      ["merlin", "assassin", "servant", "servant", "minion", "morgana", "percival", "servant", "servant", "minion"]]
 
 @app.route("/room")
 def roomList():
@@ -99,9 +99,9 @@ def insert(table, fields=[], values=[]):
     
 def update(table, field, value, condition):
     cur = g.db.cursor()
-    query = "UPDATE %s SET %s = ? WHERE %s " % (table, field, value, condition)
+    query = "UPDATE %s SET %s = ? WHERE %s " % (table, field, condition)
     print "execute SQL : \""+query+"\""
-    cur.execute(query, value)
+    cur.execute(query, [value])
     g.db.commit()
     cur.close()
     
@@ -130,15 +130,12 @@ def room(roomId):
             now["state"] = "choose"
             now["questRound"] = 0
             now["voteRound"] = 0
-            now["arthur"] = random.randint(0, 4);
+            now["arthur"] = 0;
             now["playerId"] = []
             global roles
-            ori = list(roles[now["count"]-5])
-            role = [];
-            while len(ori) > 0:
-                temp = random.choice(ori)
-                ori.remove(temp)
-                role.append(temp);
+            role = list(roles[now["count"]-5])
+            random.shuffle(role)
+            random.shuffle(now["players"])
             fieldList = ["result", "playerCount", "findMerlin"]
             valueList = ["00000", now["count"], False]
             for i in xrange(now["count"]):
@@ -162,7 +159,7 @@ def room(roomId):
 def choose(roomId):
     now = rooms[roomId]
     if(now["state"] != "choose"):
-        return redirect(url_for("room", roonId=roomId));
+        return redirect(url_for("room", roomId=roomId));
     isArthur = session.get("userId")==now["players"][now["arthur"]];
     chooseNumber = assignCount[now["count"]-5][now["questRound"]];
     if request.method == "POST":
@@ -177,7 +174,7 @@ def choose(roomId):
         print assignment
         myId = now["playerId"][now["arthur"]]
         voteId = g.db.execute("select voteId from players where id=?", [myId]).fetchall()[0][0]
-        update(assign, "assign%d"%index, assignment, "id=voteId");
+        update("assign", "assign%02d"%index,"'%s'" % (assignment), "id=%d" % (voteId));
         now["state"] = "vote"
         now["assignment"] = assignment
         return redirect(url_for("vote", roomId=roomId));
