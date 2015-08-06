@@ -1,5 +1,6 @@
 import sqlite3
 import hashlib
+import random
 from flask import Flask, redirect, url_for, flash, render_template, request, g, abort, session
 
 app = Flask(__name__)
@@ -70,7 +71,14 @@ def signUp():
     
 rooms = {}
 counter = 0
-    
+assignCount = [[2, 3, 2, 3, 3], [2, 3, 4, 3, 4], [2, 3, 3, 4, 4], [3, 4, 4, 5, 5], [3, 4, 4, 5, 5], [3, 4, 4, 5, 5]]   
+roles = [["merlin", "assasin", "servant", "servant", "minion"],\
+      ["merlin", "assasin", "servant", "servant", "minion", "servant"],\
+      ["merlin", "assasin", "servant", "servant", "minion", "morgana", "percival"],\
+      ["merlin", "assasin", "servant", "servant", "minion", "morgana", "percival", "servant"],\
+      ["merlin", "assasin", "servant", "servant", "minion", "morgana", "percival", "servant", "servant"],\
+      ["merlin", "assasin", "servant", "servant", "minion", "morgana", "percival", "servant", "servant", "minion"]]
+
 @app.route("/room")
 def roomList():
     if not session.get("loggedIn"):
@@ -81,6 +89,15 @@ def roomList():
     win, lose = result[0]
     return render_template("roomlist.html", rooms=rooms, userId=session.get("userId"), win=win, lose=lose)
 
+def insert(table, fields=(), values=()):
+    cur = g.db.cursur()
+    query = "INSERT INTO %s (%s) VALUE (%d)" % (table, ", ".join(fields), ", ".join(["?"]*len(values)))
+    cur.execute(query, values)
+    g.db.commit()
+    id = cur.lastrowid
+    cur.close()
+    return id;
+    
 @app.route("/room/<int:roomId>")
 def room(roomId):
     if not session.get("loggedIn"):
@@ -94,10 +111,36 @@ def room(roomId):
     if(session.get("userId") not in now["players"]):
         now["count"] = now["count"] + 1;
         now["players"].append(session.get("userId"))
+    if request.method == "POST":
+        if now["count"] >= 5:
+            now["state"] = "choose"
+            now["questRound"] = 0
+            now["voteRound"] = 0
+            global roles
+            ori = list(roles[now["count"]-5])
+            role = [];
+            while len(ori) > 0:
+                temp = random.choice(ori)
+                ori.remove(temp)
+                role.append(temp);
+            for i in xrange(now["count"]):
                 
-            
+                 
+    return render_template("room.html", room=now, roomId=roomId, isOwner=(session.get("userId")==now["owner"]));
+
+
+@app.route("/room/<int:roomId>/choose")
+def choose(roomId):
     return render_template("room.html", roomId=roomId)
     
+@app.route("/room/<int:roomId>/vote")
+def vote(roomId):
+    return render_template("room.html", roomId=roomId)
+    
+@app.route("/room/<int:roomId>/quest")
+def quest(roomId):
+    return render_template("room.html", roomId=roomId)
+
 @app.route("/room/create", methods = ["GET", "POST"])
 def createRoom():
     error = None
@@ -110,7 +153,7 @@ def createRoom():
             error = "Inappropriate length for your room name."
         else:
             global counter
-            newItem = {"name":request.form["roomname"], "id":counter, "owner":session.get("userId"), "count":0, "players":[]}
+            newItem = {"name":request.form["roomname"], "id":counter, "owner":session.get("userId"), "count":0, "players":[], "state":"prepare"}
             rooms[counter] = newItem
             counter += 1
             return redirect(url_for("room", roomId=newItem["id"]));
