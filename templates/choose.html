@@ -1,10 +1,10 @@
-{% extends "layout.html" %}
+{% extends "inner.html" %}
 {% block body %}
 <div id="content">
     <p> This is room {{ roomId }} </p>
     {% for player in room["players"] %}
         <p> {{player}} </p>
-        {% if isArthur %}
+        {% if room["players"][room["arthur"]] == {{player}} %}
             <p> Arthur </p>
         {% endif %}
     {% endfor %}
