@@ -52,8 +52,6 @@ def logout():
 def signUp():
     error = None
     if request.method == "POST":
-        print "signup request form : ", request.form["username"],\
-        request.form["password"], request.form["retypePassword"]
         result = g.db.execute("select password from users where username=?", [request.form['username']]).fetchall()
         if request.form["password"] != request.form["retypePassword"]:
             error = "Password mismatched!"
@@ -92,11 +90,22 @@ def roomList():
 def insert(table, fields=(), values=()):
     cur = g.db.cursur()
     query = "INSERT INTO %s (%s) VALUE (%d)" % (table, ", ".join(fields), ", ".join(["?"]*len(values)))
+    print "execute SQL : \""+query+"\""
     cur.execute(query, values)
     g.db.commit()
     id = cur.lastrowid
     cur.close()
     return id;
+    
+def update(table, field, value, condition):
+    cur = g.db.cursur()
+    query = "UPDATE %s SET %s = ? WHERE %s " % (table, field, value, condition)
+    print "execute SQL : \""+query+"\""
+    cur.execute(query, value)
+    g.db.commit()
+    id = cur.lastrowid
+    cur.close()
+    return id
     
 @app.route("/room/<int:roomId>")
 def room(roomId):
@@ -123,15 +132,26 @@ def room(roomId):
                 temp = random.choice(ori)
                 ori.remove(temp)
                 role.append(temp);
+            fieldList = ["result", "playerCount", "findMerlin"]
+            valueList = ["00000", now["count"], false]
             for i in xrange(now["count"]):
-                
-                 
+                voteId = insert("votes")
+                assignId = insert("assign")
+                questId = insert("quests")
+                userId = g.db.execute("select id from users where username=?", [session.get("userId")]).fetchall()
+                print "userID : "+userId 
+                playerId = insert("players", ["role", "userId", "voteId", "questId", "assignId", "ordering"], [role[i], userId, voteId, questId, assignId, i])
+                fieldList.append("player%d" % (i))
+                valueList.append(playerId)
+            
+            insert("games", fieldList, valueList)
+            return redirect(url_for("choose", roomId=roomId))
     return render_template("room.html", room=now, roomId=roomId, isOwner=(session.get("userId")==now["owner"]));
 
 
 @app.route("/room/<int:roomId>/choose")
 def choose(roomId):
-    return render_template("room.html", roomId=roomId)
+    return render_template("choose.html", roomId=roomId)
     
 @app.route("/room/<int:roomId>/vote")
 def vote(roomId):
