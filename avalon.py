@@ -120,11 +120,18 @@ def room(roomId):
     if(session.get("userId") not in now["players"]):
         now["count"] = now["count"] + 1;
         now["players"].append(session.get("userId"))
+    if(now["state"] == "choose"):
+        return redirect(url_for("choose"), roomId=roomId)
+    if(now["state"] == "vote"):
+        return redirect(url_for("vote"), roomId=roomId)
+    if(now["state"] == "quest"):
+        return redirect(url_for("quest"), roomId=roomId)   
     if request.method == "POST":
         if now["count"] >= 5:
             now["state"] = "choose"
             now["questRound"] = 0
             now["voteRound"] = 0
+            now["arthur"] = random.randint(0, 4);
             global roles
             ori = list(roles[now["count"]-5])
             role = [];
@@ -149,9 +156,17 @@ def room(roomId):
     return render_template("room.html", room=now, roomId=roomId, isOwner=(session.get("userId")==now["owner"]));
 
 
-@app.route("/room/<int:roomId>/choose")
+@app.route("/room/<int:roomId>/choose", methods=["POST", "GET"])
 def choose(roomId):
-    return render_template("choose.html", roomId=roomId)
+    now = rooms[roomId]
+    if(now["state"] != "choose"):
+        return redirect(url_for("room", roonId=roomId));
+    isArthur = session.get("userId")==now["players"][now["arthur"]];
+    chooseNumber = assignCount[now["count"]-5][now["questRound"]];
+    if request.method == "POST":
+        result = request.form.getlist("proposal");
+         
+    return render_template("choose.html", roomId=roomId, room=now, isArthur=isArthur, chooseNumber=chooseNumber)
     
 @app.route("/room/<int:roomId>/vote")
 def vote(roomId):
