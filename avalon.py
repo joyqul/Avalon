@@ -87,9 +87,9 @@ def roomList():
     win, lose = result[0]
     return render_template("roomlist.html", rooms=rooms, userId=session.get("userId"), win=win, lose=lose)
 
-def insert(table, fields=(), values=()):
-    cur = g.db.cursur()
-    query = "INSERT INTO %s (%s) VALUE (%d)" % (table, ", ".join(fields), ", ".join(["?"]*len(values)))
+def insert(table, fields=[], values=[]):
+    cur = g.db.cursor()
+    query = "INSERT INTO %s (%s) VALUES (%s)" % (table, ", ".join(fields), ", ".join(["?"]*len(values)))
     print "execute SQL : \""+query+"\""
     cur.execute(query, values)
     g.db.commit()
@@ -98,7 +98,7 @@ def insert(table, fields=(), values=()):
     return id;
     
 def update(table, field, value, condition):
-    cur = g.db.cursur()
+    cur = g.db.cursor()
     query = "UPDATE %s SET %s = ? WHERE %s " % (table, field, value, condition)
     print "execute SQL : \""+query+"\""
     cur.execute(query, value)
@@ -107,7 +107,7 @@ def update(table, field, value, condition):
     cur.close()
     return id
     
-@app.route("/room/<int:roomId>")
+@app.route("/room/<int:roomId>", methods = ["GET", "POST"])
 def room(roomId):
     if not session.get("loggedIn"):
         abort(401)
@@ -133,14 +133,14 @@ def room(roomId):
                 ori.remove(temp)
                 role.append(temp);
             fieldList = ["result", "playerCount", "findMerlin"]
-            valueList = ["00000", now["count"], false]
+            valueList = ["00000", now["count"], False]
             for i in xrange(now["count"]):
-                voteId = insert("votes")
-                assignId = insert("assign")
-                questId = insert("quests")
+                voteId = insert("votes", ["vote00"], ["NULL"])
+                assignId = insert("assign", ["assign00"], ["NULL"])
+                questId = insert("quests", ["quest0"], ["NULL"])
                 userId = g.db.execute("select id from users where username=?", [session.get("userId")]).fetchall()
-                print "userID : "+userId 
-                playerId = insert("players", ["role", "userId", "voteId", "questId", "assignId", "ordering"], [role[i], userId, voteId, questId, assignId, i])
+                print "userID : ", userId
+                playerId = insert("players", ["role", "userId", "voteId", "questId", "assignId", "ordering"], [role[i], userId[0][0], voteId, questId, assignId, i])
                 fieldList.append("player%d" % (i))
                 valueList.append(playerId)
             
