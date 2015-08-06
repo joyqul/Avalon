@@ -103,15 +103,13 @@ def update(table, field, value, condition):
     print "execute SQL : \""+query+"\""
     cur.execute(query, value)
     g.db.commit()
-    id = cur.lastrowid
     cur.close()
-    return id
     
 @app.route("/room/<int:roomId>", methods = ["GET", "POST"])
 def room(roomId):
     if not session.get("loggedIn"):
         abort(401)
-    print "Enter room %d" % roomId
+    print "Enter room %d, now state %s" % (roomId, rooms[roomId]["state"])
     if roomId not in rooms:
         return redirect(url_for("roomList"))
     now = rooms[roomId];
@@ -121,17 +119,19 @@ def room(roomId):
         now["count"] = now["count"] + 1;
         now["players"].append(session.get("userId"))
     if(now["state"] == "choose"):
-        return redirect(url_for("choose"), roomId=roomId)
+        print "redirect to choose"
+        return redirect(url_for("choose", roomId=roomId))
     if(now["state"] == "vote"):
-        return redirect(url_for("vote"), roomId=roomId)
+        return redirect(url_for("vote", roomId=roomId))
     if(now["state"] == "quest"):
-        return redirect(url_for("quest"), roomId=roomId)   
+        return redirect(url_for("quest", roomId=roomId))   
     if request.method == "POST":
         if now["count"] >= 5:
             now["state"] = "choose"
             now["questRound"] = 0
             now["voteRound"] = 0
             now["arthur"] = random.randint(0, 4);
+            now["playerId"] = []
             global roles
             ori = list(roles[now["count"]-5])
             role = [];
@@ -148,10 +148,12 @@ def room(roomId):
                 userId = g.db.execute("select id from users where username=?", [session.get("userId")]).fetchall()
                 print "userID : ", userId
                 playerId = insert("players", ["role", "userId", "voteId", "questId", "assignId", "ordering"], [role[i], userId[0][0], voteId, questId, assignId, i])
+                now["playerId"].append(playerId)
                 fieldList.append("player%d" % (i))
                 valueList.append(playerId)
             
-            insert("games", fieldList, valueList)
+            gameId = insert("games", fieldList, valueList)
+            now["gameId"] = gameId
             return redirect(url_for("choose", roomId=roomId))
     return render_template("room.html", room=now, roomId=roomId, isOwner=(session.get("userId")==now["owner"]));
 
@@ -165,7 +167,20 @@ def choose(roomId):
     chooseNumber = assignCount[now["count"]-5][now["questRound"]];
     if request.method == "POST":
         result = request.form.getlist("proposal");
-         
+        index = now["questRound"] * 5 + now["voteRound"];
+        assignment = "";
+        for player in now["players"]:
+            if player in result:
+                assignment += "1"
+            else: 
+                assignment += "0"
+        print assignment
+        myId = now["playerId"][now["arthur"]]
+        voteId = g.db.execute("select voteId from players where id=?", [myId]).fetchall()[0][0]
+        update(assign, "assign%d"%index, assignment, "id=voteId");
+        now["state"] = "vote"
+        now["assignment"] = assignment
+        return redirect(url_for("vote", roomId=roomId));
     return render_template("choose.html", roomId=roomId, room=now, isArthur=isArthur, chooseNumber=chooseNumber)
     
 @app.route("/room/<int:roomId>/vote")
