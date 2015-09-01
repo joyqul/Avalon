@@ -1,0 +1,16 @@
+{% extends "inner.html" %}
+{% block body %}
+<div id="content">
+    <p> This is room {{ roomId }} </p>
+    {% for player in room["players"] %}
+        <p> {{player}} </p>
+    {% endfor %}
+    <p> {{ room["lastResult"][0] }} success </p>
+    <p> {{ room["lastResult"][1]-room["lastResult"][0] }} failed  </p>
+    {% if room["lastResult"][1]-room["lastResult"][0] >= room["lastResult"][2] %}
+        <p> FAILED </p>
+    {% else %}
+        <p> SUCCESS </p>
+    {% endif %}
+</div>
+{% endblock %}
