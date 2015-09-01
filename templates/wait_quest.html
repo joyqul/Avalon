@@ -1,0 +1,16 @@
+{% extends "inner.html" %}
+{% block body %}
+<div id="content">
+    <p> This is room {{ roomId }} </p>
+    {% for player in room["players"] %}
+        <p> {{player}} </p>
+        {% if player in isChosen %}
+            {% if player in voted %}
+                <p> voted </p>
+            {% else %}
+                <p> thinking </p>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}
