@@ -139,6 +139,7 @@ def room(roomId):
             fieldList = ["result", "playerCount", "findMerlin"]
             valueList = ["00000", now["count"], False]
             now["minions"] = []
+            showRole = []
             for i in xrange(now["count"]):
                 voteId = insert("votes", ["vote00"], ["NULL"])
                 assignId = insert("assign", ["assign00"], ["NULL"])
@@ -159,7 +160,50 @@ def room(roomId):
                 if role[i] == "morgana":
                     now["morgana"] = now["players"][i]
                     now["minions"].append(now["players"][i])
-            
+                if role[i] == "minion":
+                    now["minions"].append(now["players"][i])
+                
+            for i in xrange(now["count"]):
+                showRole.append([])
+                for nowRole in role:
+                    if role[i] == "servant":
+                        showRole[i].append("Unknown")
+                    if role[i] == "merlin":
+                        if nowRole == "minion" or nowRole == "assassin" or nowRole == "morgana":
+                            showRole[i].append("Minion of Modred")
+                        elif nowRole == "merlin":
+                            showRole[i].append("Merlin : Servant of Arthur")
+                        else:
+                            showRole[i].append("Servant of Arthur")
+                    if role[i] == "percival":
+                        if nowRole == "percival":
+                            showRole[i].append("Percival : Servant of Arthur")
+                        elif nowRole == "merlin" or nowRole == "morgana":
+                            showRole[i].append("Merlin or Morgana")
+                        else:
+                            showRole[i].append("Unknown")
+                    if role[i] == "minion":
+                        if nowRole == role[i]:
+                            showRole[i].append(nowRole)
+                        elif nowRole == "assassin" or nowRole == "morgana" or nowRole == "minion":
+                            showRole[i].append("Minion of Modred")
+                        else:
+                     if role[i] == "morgana":
+                        if nowRole == role[i]:
+                            showRole[i].append("Morgana : Minion of Modred")
+                        elif nowRole == "assassin" or nowRole == "morgana" or nowRole == "minion":
+                            showRole[i].append("Minion of Modred")
+                        else:
+                      if role[i] == "assassin":
+                        if nowRole == role[i]:
+                            showRole[i].append("Assassin : Minion of Mordred")
+                        elif nowRole == "assassin" or nowRole == "morgana" or nowRole == "minion":
+                            showRole[i].append("Minion of Modred")
+                        else:
+                            showRole[i].append("Servant of Arthur")      showRole[i].append("Servant of Arthur")       showRole[i].append("Servant of Arthur")
+                if role[i] == "servant":
+                    showRole[i][i] = "Servant of Arthur"
+                    
             gameId = insert("games", fieldList, valueList)
             now["gameId"] = gameId
             return redirect(url_for("choose", roomId=roomId))
