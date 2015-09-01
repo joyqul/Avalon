@@ -209,6 +209,7 @@ def room(roomId):
             return redirect(url_for("choose", roomId=roomId))
     return render_template("room.html", room=now, roomId=roomId, isOwner=(session.get("userId")==now["owner"]));
 
+    
 
 @app.route("/room/<int:roomId>/choose", methods=["POST", "GET"])
 def choose(roomId):
