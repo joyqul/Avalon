@@ -2,7 +2,7 @@
 {% block body %}
 <div id="content">
     <p> This is room {{ roomId }} </p>
-    {% for i in xrange(room["count"]) %}
+    {% for i in range(room["count"]) %}
         <p> {{ room["players"][i] }}, {{ room["showRole"][room["players"].index("{{session.userId}}")][i] }} </p>
         {% if room["players"][room["arthur"]] == room["players"][i] %}
             <p> Arthur </p>
