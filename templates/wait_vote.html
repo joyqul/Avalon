@@ -2,9 +2,12 @@
 {% block body %}
 <div id="content">
     <p> This is room {{ roomId }} </p>
-    {% for player in room["players"] %}
-        <p> {{player}} </p>
-        {% if player in voted %}
+    {% for i in range(room["count"]) %}
+        <p> {{ room["players"][i] }}, {{ room["showRole"][room["players"].index(session['userId'])][i] }} </p>
+        {% if room["players"][room["arthur"]] == player %}
+            <p> Arthur </p>
+        {% endif %}
+        {% if room["players"][i] in voted %}
             <p> voted </p>
         {% else %}
             <p> thinking </p>
