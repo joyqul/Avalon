@@ -146,7 +146,7 @@ def room(roomId):
                 questId = insert("quests", ["quest0"], ["NULL"])
                 userId = g.db.execute("select id from users where username=?", [now["players"][i]]).fetchall()
                 print "userID : ", userId
-                playerId = insert("players", ["role", "userId", "voteId", "questId", "assignId", "ordering", "result"], [role[i], userId[0][0], voteId, questId, assignId, i, ""])
+                playerId = insert("players", ["role", "userId", "voteId", "questId", "assignId", "ordering"], [role[i], userId[0][0], voteId, questId, assignId, i])
                 now["playerId"].append(playerId)
                 fieldList.append("player%d" % (i))
                 valueList.append(playerId)
@@ -188,22 +188,26 @@ def room(roomId):
                         elif nowRole == "assassin" or nowRole == "morgana" or nowRole == "minion":
                             showRole[i].append("Minion of Modred")
                         else:
-                     if role[i] == "morgana":
+                            showRole[i].append("Servant of Arthur")
+                    if role[i] == "morgana":
                         if nowRole == role[i]:
                             showRole[i].append("Morgana : Minion of Modred")
                         elif nowRole == "assassin" or nowRole == "morgana" or nowRole == "minion":
                             showRole[i].append("Minion of Modred")
                         else:
-                      if role[i] == "assassin":
+                            showRole[i].append("Servant of Authur")
+                    if role[i] == "assassin":
                         if nowRole == role[i]:
                             showRole[i].append("Assassin : Minion of Mordred")
                         elif nowRole == "assassin" or nowRole == "morgana" or nowRole == "minion":
                             showRole[i].append("Minion of Modred")
                         else:
-                            showRole[i].append("Servant of Arthur")      showRole[i].append("Servant of Arthur")       showRole[i].append("Servant of Arthur")
+                            showRole[i].append("Servant of Arthur")
                 if role[i] == "servant":
                     showRole[i][i] = "Servant of Arthur"
-                    
+            
+            fieldList.append("result")
+            valueList.append("")
             gameId = insert("games", fieldList, valueList)
             now["gameId"] = gameId
             return redirect(url_for("choose", roomId=roomId))
@@ -241,7 +245,7 @@ def choose(roomId):
                 now["assignment"][player] = False;
             else:
                 now["assignment"][player] = True;
-            index++
+            index = index+1
     
         return redirect(url_for("vote", roomId=roomId));
     return render_template("choose.html", roomId=roomId, room=now, isArthur=isArthur, chooseNumber=chooseNumber)
@@ -268,7 +272,7 @@ def vote(roomId):
         return redirect(url_for("vote", roomId=roomId));
     return render_template("vote.html", roomId=roomId, room=now, isArthur=isArthur, isChosen=isChosen)
     
-@app.route("room/<int:roomId>/wait_vote")
+@app.route("/room/<int:roomId>/wait_vote")
 def waitVote(roomId):
     now = rooms[roomId]
     if now["state"] != "vote":
