@@ -2,17 +2,16 @@
 {% block body %}
 <div id="content">
     <p> This is room {{ roomId }} </p>
-    {% for player in room["players"] %}
-        <p> {{player}} </p>
-    {% endfor %}
     {% if isAssassin %}
         <form action="" method=post class="center">
             {% for player in room["players"] %}
-                {% if players not in room["minions"] %}
-                    <input type="radio" name="kill" value=""> Agree <br/>
+                {% if player not in room["minions"] %}
+                    <input type="radio" name="kill" value="{{player}}"> Agree <br/>
                 {% endif %}
             <input type=submit value="KILL">
         </form>
+    {% else %}
+        <p> wait assassin to chose merlin </p>
     {% endif %}
 </div>
 {% endblock %}
