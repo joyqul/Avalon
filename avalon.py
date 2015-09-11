@@ -170,7 +170,7 @@ def room(roomId):
                         showRole[i].append("Unknown")
                     if role[i] == "merlin":
                         if nowRole == "minion" or nowRole == "assassin" or nowRole == "morgana":
-                            showRole[i].append("Minion of Modred")
+                            showRole[i].append("Minion of Mordred")
                         elif nowRole == "merlin":
                             showRole[i].append("Merlin : Servant of Arthur")
                         else:
@@ -184,23 +184,23 @@ def room(roomId):
                             showRole[i].append("Unknown")
                     if role[i] == "minion":
                         if nowRole == role[i]:
-                            showRole[i].append(nowRole)
+                            showRole[i].append("Minion of Mordred")
                         elif nowRole == "assassin" or nowRole == "morgana" or nowRole == "minion":
-                            showRole[i].append("Minion of Modred")
+                            showRole[i].append("Minion of Mordred")
                         else:
                             showRole[i].append("Servant of Arthur")
                     if role[i] == "morgana":
                         if nowRole == role[i]:
-                            showRole[i].append("Morgana : Minion of Modred")
+                            showRole[i].append("Morgana : Minion of Mordred")
                         elif nowRole == "assassin" or nowRole == "morgana" or nowRole == "minion":
-                            showRole[i].append("Minion of Modred")
+                            showRole[i].append("Minion of Mordred")
                         else:
                             showRole[i].append("Servant of Authur")
                     if role[i] == "assassin":
                         if nowRole == role[i]:
                             showRole[i].append("Assassin : Minion of Mordred")
                         elif nowRole == "assassin" or nowRole == "morgana" or nowRole == "minion":
-                            showRole[i].append("Minion of Modred")
+                            showRole[i].append("Minion of Mordred")
                         else:
                             showRole[i].append("Servant of Arthur")
                 if role[i] == "servant":
@@ -210,6 +210,7 @@ def room(roomId):
             valueList.append("")
             gameId = insert("games", fieldList, valueList)
             now["gameId"] = gameId
+            now["showRole"] = showRole
             return redirect(url_for("choose", roomId=roomId))
     return render_template("room.html", room=now, roomId=roomId, isOwner=(session.get("userId")==now["owner"]));
 
@@ -259,6 +260,7 @@ def vote(roomId):
         return redirect(url_for("waitVote", roomId=roomId))
     isArthur = session.get("userId")==now["players"][now["arthur"]]
     isChosen = now["assignment"]
+    print isChosen
     if request.method == "POST":
         result = request.form["vote"];
         print result;
@@ -277,7 +279,7 @@ def waitVote(roomId):
     now = rooms[roomId]
     if now["state"] != "vote":
         return redirect(url_for("room", roomId=roomId))
-    if len(voted) == now["count"]:
+    if len(now["voted"]) == now["count"]:
         if now["agreeCount"]+now["agreeCount"] > now["count"]:
             now["state"] = "quest"
             now["successCount"] = 0
