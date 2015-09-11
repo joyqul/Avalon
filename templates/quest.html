@@ -11,7 +11,7 @@
             <p> On the mission <p>
         {% endif %}
     {% endfor %}
-    {% if isOnQuest %}
+    {% if isChosen[room["players"].index(session['userId'])] %}
         <input type="radio" name="vote" value="succeed"> Succeed <br/>
         <input type="radio" name="vote" value="failed"> Failed <br/> 
         <input type=submit value="QUEST">
