@@ -71,7 +71,7 @@ form.center {
 #outerbox {
     background-color: rgba(0, 255, 0, .2);
     width: 95%;
-    height: 100px;
+    height: 140;
     float: left;
     margin: 10px;
     margin-right: 0px;
@@ -99,6 +99,18 @@ form.center {
     margin: 10px;
     padding: 10px;
     background-color: rgba(0, 255, 255, .4);
+}
+
+.room {
+    text-align: left;
+    left: 50px;
+    margin: 50px;
+}
+
+.chosen {
+    margin: 0px;
+    background-color: rgba(0, 255, 255, .4);
+    display: inline-block;
 }
 
 #content label {
