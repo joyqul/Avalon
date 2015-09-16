@@ -1,9 +1,13 @@
 {% extends "layout.html" %}
 {% block body %}
-<div id="content">
+<div class="room">
     <p> This is room {{ roomId }} </p>
     {% for player in room["players"] %}
-        <p> {{player}} </p>
+        {% if player == session['userId'] %}
+            <p class="me"> {{player}} </p>
+        {% else %}
+            <p> {{player}} </p>
+        {% endif %}
     {% endfor %}
     {% if isOwner %}
     <form action="" method=post class="center">

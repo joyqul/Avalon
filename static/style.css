@@ -107,10 +107,8 @@ form.center {
     margin: 50px;
 }
 
-.chosen {
-    margin: 0px;
-    background-color: rgba(0, 255, 255, .4);
-    display: inline-block;
+.me {
+    color: rgb(125, 125, 125);
 }
 
 #content label {
