@@ -1,20 +1,29 @@
 {% extends "inner.html" %}
 {% block body %}
-<div id="room">
-    <p> This is room {{ roomId }}, at quest round {{room["questRound"]+1}} </p>
+<div class="room">
+    <p> This is room {{ roomId }}, quest round {{room["questRound"]+1}} </p>
     {% for i in range(room["count"]) %}
-        <p> {{ room["players"][i] }}, {{ room["showRole"][room["players"].index(session['userId'])][i] }} </p>
-        {% if room["players"][room["arthur"]] == player %}
-            <p> Arthur </p>
+        {% if room["players"][i] == session['userId'] %}
+            <p class="me"> 
+        {% else %}
+            <p>
+        {% endif %}
+        {% if room["players"][room["arthur"]] == room["players"][i] %}
+            <img src="../../static/img/arthur.svg" height="30" width="30">
+        {%  else %}
+            <img src="../../static/img/arthur.svg" height="30" width="30" class="hide">
         {% endif %}
         {% if isChosen[room["players"][i]] %}
-            <p> On the mission <p>
+            <img src="../../static/img/onMission.svg" height="30" width="30">
+        {% else %}
+            <img src="../../static/img/onMission.svg" height="30" width="30" class="hide">
         {% endif %}
+            {{ room["players"][i] }}, {{ room["showRole"][room["players"].index(session['userId'])][i] }} </p>
     {% endfor %}
     {% if isChosen[session['userId']] %}
         <form action="" method=post class="center">
-            <input type="radio" name="quest" value="succeed"> Succeed <br/>
-            <input type="radio" name="quest" value="failed"> Failed <br/> 
+            <p><input type="radio" name="quest" value="succeed"> Succeed </p>
+            <p><input type="radio" name="quest" value="failed"> Failed </p>
             <input type=submit value="QUEST">
         </form>
     {% else %}
