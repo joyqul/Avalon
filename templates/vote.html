@@ -1,6 +1,6 @@
 {% extends "inner.html" %}
 {% block body %}
-<div id="room">
+<div class="room">
     <p> This is room {{ roomId }}, vote round {{room["voteRound"]+1}} </p>
     {% for i in range(room["count"]) %}
         {% if room["players"][i] == session['userId'] %}
