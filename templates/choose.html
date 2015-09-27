@@ -1,12 +1,15 @@
 {% extends "inner.html" %}
 {% block body %}
-<div id="room">
+<div class="room">
     <p> This is room {{ roomId }} </p>
     {% for i in range(room["count"]) %}
-        <p> {{ room["players"][i] }}, {{ room["showRole"][room["players"].index(session['userId'])][i] }} </p>
-        {% if room["players"][room["arthur"]] == room["players"][i] %}
-            <p> Arthur </p>
+        {% if room["players"][i] == session['userId'] %}
+            <p class="me"> 
         {% endif %}
+        {% if room["players"][room["arthur"]] == room["players"][i] %}
+            [Arthur]
+        {% endif %}
+        {{ room["players"][i] }}, {{ room["showRole"][room["players"].index(session['userId'])][i] }} </p>
     {% endfor %}
     {% if isArthur %}
         <p> Please choose {{ chooseNumber }} people </p>
