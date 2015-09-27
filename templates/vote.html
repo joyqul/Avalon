@@ -1,15 +1,23 @@
 {% extends "inner.html" %}
 {% block body %}
 <div id="room">
-    <p> This is room {{ roomId }}, at vote round {{room["voteRound"]+1}} </p>
+    <p> This is room {{ roomId }}, vote round {{room["voteRound"]+1}} </p>
     {% for i in range(room["count"]) %}
-        <p> {{ room["players"][i] }}, {{ room["showRole"][room["players"].index(session['userId'])][i] }} </p>
-        {% if room["players"][room["arthur"]] == player %}
-            <p> Arthur </p>
+        {% if room["players"][i] == session['userId'] %}
+            <p class="me"> 
+        {% else %}
+            <p>
         {% endif %}
+        {% if room["players"][room["arthur"]] == room["players"][i] %}
+            <img src="../../static/img/arthur.svg" height="30" width="30">
+        {%  else %}
+            <img src="../../static/img/arthur.svg" height="30" width="30" class="hide">
+        {% endif %}
+            {{ room["players"][i] }}, {{ room["showRole"][room["players"].index(session['userId'])][i] }}
         {% if isChosen[room["players"][i]] %}
-            <p> On the quest <p>
+            <img src="../../static/img/onMission.svg" height="30" width="30">
         {% endif %}
+        </p>
     {% endfor %}
     <form action="" method=post class="center">
         <input type="radio" name="vote" value="agree"> Agree <br/>
