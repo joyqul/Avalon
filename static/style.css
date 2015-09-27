@@ -107,6 +107,7 @@ form.center {
 
 .room {
     text-align: left;
+    display: inline-block;
     left: 50px;
     margin: 50px;
 }
