@@ -12,11 +12,6 @@
         {%  else %}
             <img src="../../static/img/arthur.svg" height="30" width="30" class="hide">
         {% endif %}
-        {% if isChosen[room["players"][i]] %}
-            <img src="../../static/img/onMission.svg" height="30" width="30">
-        {% else %}
-            <img src="../../static/img/onMission.svg" height="30" width="30" class="hide">
-        {% endif %}
             {{ room["players"][i] }}, {{ room["showRole"][room["players"].index(session['userId'])][i] }} </p>
     {% endfor %}
     <p class="big"> {{ room["lastResult"][0] }} success </p>
