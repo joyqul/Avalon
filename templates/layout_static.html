@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+    <title>Avalon</title>
+    <meta charset = "utf-8" />
+    <link rel="stylesheet" type="text/css" href="../static/main.css" />
+    <link rel="stylesheet" type="text/css" href="../static/style.css" />
+</head>
+<body>
+    <div id="navigation">
+        <p><a href="{{url_for('logout')}}">Log Out</a>  <a href="{{ url_for('root') }}">Home</a> </p>
+    </div>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+{% block body %}{% endblock %}
+    <div id="footer">
+        <p>July 2015, powered by Deepshine, Joyqul</p>
+    </div>
+</body>
+</html>
