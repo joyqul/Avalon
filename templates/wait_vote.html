@@ -13,11 +13,6 @@
         {%  else %}
             <img src="../../static/img/arthur.svg" height="30" width="30" class="hide">
         {% endif %}
-        {% if isChosen[room["players"][i]] %}
-            <img src="../../static/img/onMission.svg" height="30" width="30">
-        {% else %}
-            <img src="../../static/img/onMission.svg" height="30" width="30" class="hide">
-        {% endif %}
         {% if room["players"][i] in voted %}
             <img src="../../static/img/vote.svg" height="30" width="30">
         {% else %}
