@@ -13,6 +13,11 @@
     {% endif %}
 
     {% for i in range(room["count"]) %}
+        {% if room["players"][i] == session['userId'] %}
+            <p class="me"> 
+        {% else %}
+            <p>
+        {% endif %}
         {% if room["players"][room["arthur"]] == room["players"][i] %}
             <img src="../../static/img/arthur.svg" height="30" width="30">
         {%  else %}
@@ -20,11 +25,6 @@
         {% endif %}
         {% if isArthur %}
             <input type="checkbox" name="proposal" value="{{room["players"][i]}}">
-        {% endif %}
-        {% if room["players"][i] == session['userId'] %}
-            <p class="me"> 
-        {% else %}
-            <p>
         {% endif %}
         {{ room["players"][i] }}, {{ room["showRole"][room["players"].index(session['userId'])][i] }} </p>
     {% endfor %}
