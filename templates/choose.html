@@ -2,27 +2,33 @@
 {% block body %}
 <div class="room">
     <p> This is room {{ roomId }} </p>
+    {% if isArthur %}
+        <p> Please choose {{ chooseNumber }} people </p>
+    {% else %}
+        <p> Please wait Arthur to choose </p>
+    {% endif %}
+
+    {% if isArthur %}
+        <form action="" method=post class="center">
+    {% endif %}
+
     {% for i in range(room["count"]) %}
-        {% if room["players"][i] == session['userId'] %}
-            <p class="me"> 
-        {% endif %}
         {% if room["players"][room["arthur"]] == room["players"][i] %}
             <img src="../../static/img/arthur.svg" height="30" width="30">
         {%  else %}
             <img src="../../static/img/arthur.svg" height="30" width="30" class="hide">
         {% endif %}
+        {% if isArthur %}
+            <input type="checkbox" name="proposal" value="{{room["players"][i]}}">
+        {% endif %}
+        {% if room["players"][i] == session['userId'] %}
+            <p class="me"> 
+        {% endif %}
         {{ room["players"][i] }}, {{ room["showRole"][room["players"].index(session['userId'])][i] }} </p>
     {% endfor %}
     {% if isArthur %}
-        <p> Please choose {{ chooseNumber }} people </p>
-        <form action="" method=post class="center">
-        {% for player in room["players"] %}
-            <input type="checkbox" name="proposal" value="{{player}}"> {{player}} <br/>
-        {% endfor %}
         <input type=submit value="CHOOSE">
         </form>
-    {% else %}
-        <p> Please wait Arthur to choose </p>
     {% endif %}
 </div>
 {% endblock %}
