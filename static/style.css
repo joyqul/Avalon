@@ -101,6 +101,10 @@ form.center {
     background-color: rgba(0, 255, 255, .4);
 }
 
+.hide {
+    visibility: hidden;
+}
+
 .room {
     text-align: left;
     left: 50px;
