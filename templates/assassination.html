@@ -1,12 +1,12 @@
 {% extends "inner.html" %}
 {% block body %}
-<div id="room">
+<div class="room">
     <p> This is room {{ roomId }} </p>
     {% if isAssassin %}
         <form action="" method=post class="center">
             {% for player in room["players"] %}
                 {% if player not in room["minions"] %}
-                    <input type="radio" name="kill" value="{{player}}"> Agree <br/>
+                    <p><input type="radio" name="kill" value="{{player}}"> {{player}} </p>
                 {% endif %}
             {% endfor %}
             <input type=submit value="KILL">
