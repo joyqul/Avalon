@@ -1,4 +1,8 @@
-{% extends "inner.html" %}
+{% if isArthur %}
+    {% extends "inner.html" %}
+{% else %}
+    {% extends "inner_static.html" %}
+{% endif %}
 {% block body %}
 <div class="room">
     <p> This is room {{ roomId }} </p>
