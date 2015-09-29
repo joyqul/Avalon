@@ -116,15 +116,19 @@ def room(roomId):
     now = rooms[roomId];
     if now["count"] > 10:
         return redirect(url_for("roomList"))
-    if(session.get("userId") not in now["players"]):
+    if session.get("userId") not in now["players"]:
         now["count"] = now["count"] + 1;
         now["players"].append(session.get("userId"))
-    if(now["state"] == "choose"):
+    if now["state"] == "choose":
         return redirect(url_for("choose", roomId=roomId))
-    if(now["state"] == "vote"):
+    if now["state"] == "vote":
         return redirect(url_for("vote", roomId=roomId))
-    if(now["state"] == "quest"):
+    if now["state"] == "quest":
         return redirect(url_for("quest", roomId=roomId))   
+    if now["state"] == "result":
+        return redirect(url_for("roundResult", roomId=roomId))
+    if now["state"] == "over":
+        return redirect(url_for("gameResult", roomId=roomId))
     if request.method == "POST":
         if now["count"] >= 5:
             now["state"] = "choose"
@@ -312,10 +316,9 @@ def quest(roomId):
         now["quested"].append(session.get("userId"));
         if result == "succeed":
             now["successCount"] = now["successCount"] + 1;
-        index = now["questRound"]*5 + now["voteRound"]
         myId = now["playerId"][now["players"].index(session.get("userId"))]
         questId = g.db.execute("select questId from players where id=?", [myId]).fetchall()[0][0]
-        update("quests", "quest%01d"%index, "'%s'" % (result), "id=%d" % (questId));
+        update("quests", "quest%01d"%now["questRound"], "'%s'" % (result), "id=%d" % (questId));
         return redirect(url_for("quest", roomId=roomId));
     return render_template("quest.html", roomId=roomId, room=now, isChosen=isChosen)
     
@@ -323,15 +326,13 @@ def quest(roomId):
 def waitQuest(roomId):
     now = rooms[roomId]
     isChosen = now["assignment"]
-    '''for i in range(len(now["assignment"])):
-        if now[assignment]:
-            isChosen.append(now["players"][i])'''
     if now["state"] != "quest":
         return redirect(url_for("room", roomId=roomId))
     if len(now["quested"]) == assignCount[now["count"]-5][now["questRound"]]:
-        now["state"] = "choose"
+        now["state"] = "result"
+        now["seeResult"] = []
         failCount = assignCount[now["count"]-5][now["questRound"]] - now["successCount"]; 
-        if now["successCount"] == successCount[now["count"]-5][now["questRound"]]:
+        if now["successCount"] >= successCount[now["count"]-5][now["questRound"]]:
             now["successRound"] = now["successRound"] + 1;
         now["lastResult"] = [now["successCount"], assignCount[now["count"]-5][now["questRound"]], successCount[now["count"]-5][now["questRound"]]]
         result = g.db.execute("select result from games where id=?", [now["gameId"]]).fetchall()[0][0]
@@ -344,9 +345,6 @@ def waitQuest(roomId):
             now["winner"] = "Mordred"
             now["state"] = "over"
             return redirect(url_for("gameResult", roomId=roomId))
-        now["arthur"] = (now["arthur"] + 1) % now["count"]
-        now["questRound"] = now["questRound"]+1
-        now["voteRound"] = 0
         return redirect(url_for("roundResult", roomId=roomId))
             
     return render_template("wait_quest.html", roomId=roomId, room=now, voted=now["quested"], isChosen=isChosen)
@@ -354,15 +352,22 @@ def waitQuest(roomId):
 @app.route("/room/<int:roomId>/round_result")
 def roundResult(roomId):
     now = rooms[roomId]
-    if now["state"] != "choose":
+    if now["state"] != "result":
         return redirect(url_for("room", roomId=roomId))
+    if len(now["seeResult"]) == now["count"]:
+        now["state"] = "choose"
+        now["arthur"] = (now["arthur"] + 1) % now["count"]
+        now["questRound"] = now["questRound"]+1
+        now["voteRound"] = 0
+    if session.get("userId") not in now["seeResult"]:
+        now["seeResult"].append(session.get("usedId"))
     return render_template("round_result.html", roomId=roomId, room=now)
 
 @app.route("/room/<int:roomId>/assassination", methods = ["POST", "GET"])
 def assassination(roomId):
     now = rooms[roomId]
     if now["state"] != "assassination":
-        return redirect(url_for("room"), roomId=roomId)
+        return redirect(url_for("room", roomId=roomId))
     isAssassin = session.get("userId") == now["assassin"]
     if request.method == "POST" and isAssassin:
         result = request.form["kill"]
@@ -378,6 +383,9 @@ def assassination(roomId):
     
 @app.route("/room/<int:roomId>/game_result")
 def gameResult(roomId):
+    now = rooms[roomId]
+    if now["state"] != "over":
+        return redirect(url_for("room", roomId=roomId))
     result = ""
     if now["winner"] == "Arthur":
         result = "The loyal servants of King Arthur achieved victory!"
