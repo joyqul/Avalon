@@ -125,6 +125,8 @@ def room(roomId):
         return redirect(url_for("vote", roomId=roomId))
     if now["state"] == "quest":
         return redirect(url_for("quest", roomId=roomId))   
+    if now["state"] == "assassination":
+        return redirect(url_for("assassination", roomId=roomId))
     if now["state"] == "result":
         return redirect(url_for("roundResult", roomId=roomId))
     if now["state"] == "over":
