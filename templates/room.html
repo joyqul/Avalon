@@ -10,7 +10,7 @@
         {% endif %}
     {% endfor %}
     <form action="" method=post class="center">
-    {% if isOwner %}
+    {% if isOwner and room["count"] >= 5 %}
         <input type=submit name="submit" value="START">
     {% endif %}
         <input type=submit name="submit" value="EXIT">
