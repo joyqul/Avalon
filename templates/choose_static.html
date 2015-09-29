@@ -1,10 +1,8 @@
-{% extends "inner_static.html" %}
+{% extends "inner.html" %}
 {% block body %}
 <div class="room">
     <p> This is room {{ roomId }} </p>
-    <p> Please choose {{ chooseNumber }} people </p>
-
-    <form action="" method=post class="center">
+    <p> Please wait Arthur to choose </p>
 
     {% for i in range(room["count"]) %}
         {% if room["players"][i] == session['userId'] %}
@@ -17,10 +15,7 @@
         {%  else %}
             <img src="../../static/img/arthur.svg" height="30" width="30" class="hide">
         {% endif %}
-        <input type="checkbox" name="proposal" value="{{room["players"][i]}}">
         {{ room["players"][i] }}, {{ room["showRole"][room["players"].index(session['userId'])][i] }} </p>
     {% endfor %}
-        <input type=submit value="CHOOSE">
-    </form>
 </div>
 {% endblock %}
