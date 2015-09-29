@@ -14,7 +14,11 @@
             <img src="../../static/img/arthur.svg" height="30" width="30" class="hide">
         {% endif %}
         {% if room["players"][i] in voted %}
-            <img src="../../static/img/vote.svg" height="30" width="30">
+            {% if room["players"][i] in agreed %}
+                <img src="../../static/img/yes.svg" height="30" width="30">
+            {% else %}
+                <img src="../../static/img/no.svg" height="30" width="30">
+            {% endif %}
         {% else %}
             <img src="../../static/img/thinking.svg" height="30" width="30">
         {% endif %}

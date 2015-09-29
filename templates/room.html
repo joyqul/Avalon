@@ -9,10 +9,11 @@
             <p> {{player}} </p>
         {% endif %}
     {% endfor %}
-    {% if isOwner %}
     <form action="" method=post class="center">
-    <input type=submit value="START">
-    </form>
+    {% if isOwner %}
+        <input type=submit name="start" value="START">
     {% endif %}
+        <input type=submit name="exit" value="EXIT">
+    </form>
 </div>
 {% endblock %}
