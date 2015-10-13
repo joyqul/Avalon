@@ -4,7 +4,7 @@
     <p> This is room {{ roomId }} </p>
     <p> Please choose {{ chooseNumber }} people </p>
 
-    <form action="" method=post class="center">
+    <form name="form1" action="" method=post class="center">
 
     {% for i in range(room["count"]) %}
         {% if room["players"][i] == session['userId'] %}
@@ -17,10 +17,37 @@
         {%  else %}
             <img src="../../static/img/arthur.svg" height="30" width="30" class="hide">
         {% endif %}
-        <input type="checkbox" name="proposal" value="{{room["players"][i]}}">
+        <input type="checkbox" name="proposal_{{i}}" value="{{room["players"][i]}}">
         {{ room["players"][i] }}, {{ room["showRole"][room["players"].index(session['userId'])][i] }} </p>
     {% endfor %}
-        <input type=submit value="CHOOSE">
+        <input name="bt" type=submit value="CHOOSE">
     </form>
+
+<script language="javascript">
+function choose() {
+    j=0;
+    for (i=0; i<{{room["count"]}}; i++) {
+        eval("t1 = form1.proposal_" + i + ".checked");
+        if (t1) j++;
+    }
+
+    if (j>={{chooseNumber}}) { 
+        for (i=0; i<{{room["count"]}}; i++) {
+            eval("t2 = form1.proposal_" + i + ".checked");
+            if (!t2) eval("form1.proposal_" + i + ".disabled = true");
+        }
+    }
+    else {
+        for (i=0; i<{{room["count"]}}; i++)
+            eval("form1.checkbox_" + i + ".disabled = false");
+    }
+    if (j == {{chooseNumber}}) {
+        eval("form1.bt.disabled = false");
+    }
+    else {
+        eval("form1.bt.disabled = true");
+    }
+} 
+</script>
 </div>
 {% endblock %}
