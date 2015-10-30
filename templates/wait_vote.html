@@ -24,10 +24,5 @@
         {% endif %}
             {{ room["players"][i] }}, {{ room["showRole"][room["players"].index(session['userId'])][i] }} </p>
     {% endfor %}
-    {% if voteCount == room["count"] %}
-        <form action="" method=post class="center">
-            <input type=submit value="OK">
-        </form>
-    {% endif %}
 </div>
 {% endblock %}
