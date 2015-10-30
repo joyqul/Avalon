@@ -255,7 +255,7 @@ def choose(roomId):
                 assignment += "1"
             else: 
                 assignment += "0"
-        print assignment
+        print "assigment "+assignment
         myId = now["playerId"][now["arthur"]]
         assignId = g.db.execute("select assignId from players where id=?", [myId]).fetchall()[0][0]
         update("assign", "assign%02d"%index, "'%s'" % (assignment), "id=%d" % (assignId));
@@ -291,7 +291,7 @@ def vote(roomId):
     if request.method == "POST":
         now["voted"].append(session.get("userId"));
         result = request.form["vote"];
-        print result;
+        print "vote " + result;
         if result == "agree":
             now["agreed"].append(session.get("userId"));
         index = now["questRound"]*5 + now["voteRound"]
@@ -310,7 +310,7 @@ def waitVote(roomId):
         return redirect(url_for("vote", roomId=roomId))
     if len(now["seenVote"]) == now["count"]:
         index = now["questRound"]*5 + now["voteRound"];
-        voteResult[index] = now["agreed"]
+        now["voteResult"][index] = now["agreed"]
         agreeCount = len(now["agreed"])
         if agreeCount+agreeCount > now["count"]:
             now["state"] = "quest"
