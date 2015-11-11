@@ -440,7 +440,7 @@ def gameResult(roomId):
         if session.get("userId") in now["minions"]:
             update("users", "win", "win + 1", "id=%d" % (userId));
         else:
-            update("users", "lose", "lose + 1", "id=%d" % (usedId));
+            update("users", "lose", "lose + 1", "id=%d" % (userId));
     if request.method == "POST":
         if session.get("userId") not in now["done"]:
             now["done"].append(session.get("userId"))
