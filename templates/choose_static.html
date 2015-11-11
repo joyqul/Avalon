@@ -18,4 +18,14 @@
         {{ room["players"][i] }}, {{ room["showRole"][room["players"].index(session['userId'])][i] }} </p>
     {% endfor %}
 </div>
+<div class="room">
+    <h3> Choose History </h3>
+    <table>
+    <tr>
+        <td> -- </td>
+    {% for i in range(room["count"]) %}
+        <td> {{room["players"][i] }} </td>
+    {% endfor %}
+    </tr>
+</div>
 {% endblock %}
