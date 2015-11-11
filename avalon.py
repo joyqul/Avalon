@@ -395,7 +395,7 @@ def roundResult(roomId):
         now["questRound"] = now["questRound"]+1
         now["voteRound"] = 0
     if session.get("userId") not in now["seeResult"]:
-        now["seeResult"].append(session.get("usedId"))
+        now["seeResult"].append(session.get("userId"))
     return render_template("round_result.html", roomId=roomId, room=now)
 
 @app.route("/room/<int:roomId>/assassination", methods = ["POST", "GET"])
@@ -431,7 +431,7 @@ def gameResult(roomId):
         if session.get("userId") in now["minions"]:
             update("users", "lose", "lose + 1", "id=%d" % (userId));
         else:
-            update("users", "win", "win + 1", "id=%d" % (usedId));
+            update("users", "win", "win + 1", "id=%d" % (userId));
         
     else:
         result = "The evil minions of Mordred destroyed the rule of justice!"

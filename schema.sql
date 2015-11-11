@@ -39,8 +39,7 @@ drop table if exists players;
 create table players(
     id integer primary key autoincrement,
     role text not null,
-    userId i
-    nteger not null,
+    userId integer not null,
     voteId integer not null,
     questId integer not null,
     assignId integer not null,
