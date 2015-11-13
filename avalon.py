@@ -146,6 +146,7 @@ def room(roomId):
             now["successRound"] = 0
             now["voteResult"] = {}
             now["questResult"] = []
+            now["chooseRecord"] = {}
             global roles
             role = list(roles[now["count"]-5])
             random.shuffle(role)
@@ -253,8 +254,6 @@ def choose(roomId):
         for player in now["players"]:
             if player in result:
                 assignment += "1"
-            else: 
-                assignment += "0"
         print "assigment "+assignment
         myId = now["playerId"][now["arthur"]]
         assignId = g.db.execute("select assignId from players where id=?", [myId]).fetchall()[0][0]
@@ -271,7 +270,7 @@ def choose(roomId):
             else:
                 now["assignment"][player] = True;
             index = index+1
-    
+        now["chooseRecord"][now["questRound"]*5+now["voteRound"]] = now["assignment"] 
         return redirect(url_for("vote", roomId=roomId));
     if isArthur:
         return render_template("choose.html", roomId=roomId, room=now, chooseNumber=chooseNumber)
