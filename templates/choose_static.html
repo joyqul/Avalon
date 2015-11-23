@@ -1,8 +1,9 @@
 {% extends "inner.html" %}
 {% block body %}
 <div class="room">
-    <p> This is room {{ roomId }} </p>
-    <p> Please wait Arthur to choose </p>
+    <p> This is room {{ roomId }},  at vote round {{room["voteRound"]+1}}, quest round {{room["questRound"]+1}}</p>
+    <p> Now success rounds number is {{room["successRound"]}} </p>
+    <p> Please wait Arthur to choose {{chooseNumber}} people</p>
 
     {% for i in range(room["count"]) %}
         {% if room["players"][i] == session['userId'] %}
@@ -27,5 +28,57 @@
         <td> {{room["players"][i] }} </td>
     {% endfor %}
     </tr>
+    {% for i in range(5*(room["questRound"]+2)) %}
+        {% if i in room["voteResult"] %}
+            <tr>
+                <td>{{i//5+1}}-{{i%5+1}}</td>
+                {% for j in range(room["count"]) %}
+                    {% if room["players"][j] in room["voteResult"][i] %}
+                        <td>O</td>
+                    {% else %}
+                        <td>X</td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endif %}
+    {% endfor %}
+    </table>
+
+    <h3> Vote History </h3>
+    <table>
+    <tr>
+        <td> -- </td>
+    {% for i in range(room["count"]) %}
+        <td> {{room["players"][i] }} </td>
+    {% endfor %}
+    </tr>
+    {% for i in range(5*(room["questRound"]+2)) %}
+        {% if i in room["voteResult"] %}
+            <tr>
+                <td>{{i//5+1}}-{{i%5+1}}</td>
+                {% for j in range(room["count"]) %}
+                    {% if room["players"][j] in room["voteResult"][i] %}
+                        <td>O</td>
+                    {% else %}
+                        <td>X</td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endif %}
+    {% endfor %}
+    </table>
+
+    <h3> Round Result </h3>
+    <table>
+        <tr>
+            {% for i in room["questResult"] %}
+                {% if i %}
+                    <td>O</td>
+                {% else %}
+                    <td>X</td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+    </table>
 </div>
 {% endblock %}
