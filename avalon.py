@@ -254,6 +254,8 @@ def choose(roomId):
         for player in now["players"]:
             if player in result:
                 assignment += "1"
+            else:
+                assignment += "0"
         print "assigment "+assignment
         myId = now["playerId"][now["arthur"]]
         assignId = g.db.execute("select assignId from players where id=?", [myId]).fetchall()[0][0]
