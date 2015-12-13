@@ -1,0 +1,67 @@
+section h1, section h2 {
+    text-align: center;
+}
+
+section h2 {
+    font-size: 20px;
+    font-weight: normal;
+}
+
+section img {
+    width: 30px;
+    line-height: 30px;
+    vertical-align: center;
+}
+
+
+section p {
+    width: 100%;
+    text-align: center;
+}
+
+section input {
+    height: 30px;
+    line-height: 30px;
+    width: 90%;
+}
+
+section input[type="submit"] {
+    color: #FFF;
+    background: rgba(0, 0, 0, .9);
+    margin: 0;
+}
+
+section input[type="text"], section input[type="password"] {
+    padding: 1px 10px;
+    width: 80%;
+    vertical-align: top;
+    display: inline-block;
+}
+
+section .box {
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    display: inline-block;
+    margin: 0;
+    background: #F99;
+}
+::-webkit-input-placeholder {
+    font-size: 16px;	
+    color: #F99;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    font-size: 16px;	
+    color: #F99;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+    font-size: 16px;	
+    color: #F99;
+}
+
+:-ms-input-placeholder {  
+    font-size: 16px;	
+    color: #F99;
+}
