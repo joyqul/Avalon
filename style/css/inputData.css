@@ -27,6 +27,8 @@ section input {
 
 section input[type="submit"] {
     color: #FFF;
+    height: 50px;
+    line-height: 50px;
     background: rgba(0, 0, 0, .9);
     margin: 0;
 }
