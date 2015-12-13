@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="css/roomlist.css">
+        <link rel="stylesheet" type="text/css" href="css/create.css">
         <link href='https://fonts.googleapis.com/css?family=Cuprum:700,400' rel='stylesheet' type='text/css'>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -27,25 +27,14 @@
             <div class="col-12">
                 <section>
                     <div class="row">
-                        <div class="col-12"> <a href="creat.html">Create room</a> </div>
-                        <div class="col-12">
-                            <article>
-                                <h2>Room name</h2>
-                                <p>Host: host name</p>
-                                <p>Player: 3</p>
-                                <p>Room ID: 1</p>
-                                <a href="room.index">Join</a>
-                            </article>
-                        </div>
-                        <div class="col-12">
-                            <article>
-                                <h2>Room name</h2>
-                                <p>Host: host name</p>
-                                <p>Player: 3</p>
-                                <p>Room ID: 1</p>
-                                <a href="room.index">Join</a>
-                            </article>
-                        </div>
+                        <div class="col-1"></div>
+                        <form action="" method=post class="col-10">
+                            <h2><div class="box"><img src="images/room.svg" alt="Room"></div> 
+                                <input type=text name=username placeholder="Room Name"></h2>
+                            <p><input type=submit value=Create></p>
+                        </form>
+                        <div class="col-1"></div>
+                        <p class="col-12"><a href="roomlist.html">Exit</a></p>
                     </div>
                 </section>
             </div>
