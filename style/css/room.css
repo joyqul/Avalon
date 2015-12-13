@@ -10,9 +10,10 @@
 
 section input[type="submit"] {
     padding: 0;
+    width: 100%;
 }
 
-section input[type="checkbox"] {
+section input[type="checkbox"], section input[type="radio"] {
     width: 20px;
     height: 20px;
     vertical-align: middle;
@@ -61,7 +62,7 @@ table {
     display: none;
 }
 
-.choose, .agree, .disagree {
+.thinking, .onMission, .choose, .agree, .disagree {
     background-image: url("../images/agree.svg");
     background-repeat: no-repeat;
     -moz-background-size: 100%;
@@ -72,6 +73,14 @@ table {
 .disagree {
     background-image: url("../images/disagree.svg");
     
+}
+
+.onMission {
+    background-image: url("../images/onMission.svg");
+}
+
+.thinking {
+    background-image: url("../images/thinking.svg");
 }
 
 .choose {
