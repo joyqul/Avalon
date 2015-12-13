@@ -62,7 +62,7 @@ table {
     display: none;
 }
 
-.thinking, .onMission, .choose, .agree, .disagree {
+.vote, .yes, .no, .thinking, .onMission, .choose, .agree, .disagree {
     background-image: url("../images/agree.svg");
     background-repeat: no-repeat;
     -moz-background-size: 100%;
@@ -75,12 +75,30 @@ table {
     
 }
 
+.vote, .onMission, .thinking, .yes, .no {
+    position: absolute;
+    background-image: url("../images/thinking.svg");
+    top: 0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    z-index:10;
+}
+
+.yes {
+    background-image: url("../images/yes.svg");
+}
+
+.no {
+    background-image: url("../images/no.svg");
+}
+
 .onMission {
     background-image: url("../images/onMission.svg");
 }
 
-.thinking {
-    background-image: url("../images/thinking.svg");
+.vote {
+    background-image: url("../images/vote.svg");
 }
 
 .choose {

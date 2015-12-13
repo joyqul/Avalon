@@ -1,4 +1,5 @@
 .player {
+    position: relative;
     background: #F99;
     padding: 0px 10px;
     min-height: 50px;

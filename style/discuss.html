@@ -28,9 +28,9 @@
                 <section>
                     <div class="row">
                         <div class="col-6">
-                            <div class="circle win">2</div>
-                            <div class="circle lose">3</div>
-                            <div class="circle now">2</div>
+                            <div class="circle">2</div>
+                            <div class="circle">3</div>
+                            <div class="circle">2</div>
                             <div class="circle">3</div>
                             <div class="circle">3</div>
                         </div>
@@ -39,6 +39,18 @@
                         </div>
                         <div class="col-12">
                             <table>
+                                <tr>
+                                    <td colspan="6">O means that person is on the chosen list</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6"><img src="images/agree.svg" width=20 height=20 alt=""> means that this person agree the list</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6"><img src="images/disagree.svg" width=20 height=20 alt=""> means that this person disagree the list</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6">Fisrt column is the person who chose the list</td>
+                                </tr>
                                 <tr>
                                     <td>Arthur</td>
                                     <td>a</td>
@@ -73,41 +85,44 @@
                                 </tr>
                             </table>
                         </div>
-                        <form name="choose" action="" method=post>
-                            <div class="col-12">
-                                <div class="row">
-                                    <div class="col-6">vote round: 2</div>
-                                    <div class="col-6"><input type=submit name="submit" value="OK"></div>
-                                </div>
+                        <form action="" method="post">
+                            <div class="col-9">
+                                Please enter the possibility of the person who is minion of Mordred you think
                             </div>
+                            <div class="col-3"><input type=submit name="submit" value="OK"></div>
                             <div class="col-6">
                                 <div class="player">
-                                    <p><input type="checkbox" value="1-Name" name="1-Name">1-Name</p>
+                                    <p>1-Name</p>
+                                    <input type="range" name="1-Name" min="0" max="10">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="player me">
-                                    <p><input type="checkbox" value="1-Name" name="2-You">2-You</p>
+                                    <p>2-You</p>
+                                    <input type="range" name="1-Name" min="0" max="10">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="player">
-                                    <p><input type="checkbox" value="1-Name" name="2-You">3-A</p>
+                                    <p>3-A</p>
+                                    <input type="range" name="1-Name" min="0" max="10">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="player">
-                                    <p><input type="checkbox" value="1-Name" name="2-You">4-B</p>
+                                    <p>4-B</p>
+                                    <input type="range" name="1-Name" min="0" max="10">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="player">
-                                    <p><input type="checkbox" value="1-Name" name="2-You">5-CCC</p>
+                                    <p>5-CCC</p>
+                                    <input type="range" name="1-Name" min="0" max="10">
                                 </div>
                             </div>
                         </form>
                         <div class="col-12">
-                            <a href="vote.html">Go to vote page</a>
+                            <a href="discuss.html">Go to discuss page</a>
                         </div>
                     </div>
                 </section>
