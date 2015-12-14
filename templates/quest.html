@@ -1,33 +1,32 @@
-{% extends "inner_static.html" %}
+{% extends "layout_static.html" %}
 {% block body %}
-<div class="room">
-    <p> This is room {{ roomId }}, quest round {{room["questRound"]+1}} </p>
-    {% for i in range(room["count"]) %}
-        {% if room["players"][i] == session['userId'] %}
-            <p class="me"> 
-        {% else %}
-            <p>
-        {% endif %}
-        {% if room["players"][room["arthur"]] == room["players"][i] %}
-            <img src="../../static/img/arthur.svg" height="30" width="30">
-        {%  else %}
-            <img src="../../static/img/arthur.svg" height="30" width="30" class="hide">
-        {% endif %}
+<div class="col-12">
+    <div class="col-3">Vote round: {{room["voteRound"]+1}}</div>
+    <form action="" method=post>
+        <div class="col-3"><input type=radio name="quest" value="succeed">Succeed</div>
+        <div class="col-3"><input type=radio name="quest" value="failed">Failed</div>
+        <div class="col-3"><input type=submit class="col-3" value="QUEST"></div>
+    </form>
+</div>
+{% for i in range(room["count"]) %}
+<div class="col-6 col-m-3">
+    {% if room["players"][i] == session['userId'] %}
+    <div class="player me">
         {% if isChosen[room["players"][i]] %}
-            <img src="../../static/img/onMission.svg" height="30" width="30">
-        {% else %}
-            <img src="../../static/img/onMission.svg" height="30" width="30" class="hide">
+        <div class="onMission"></div>
         {% endif %}
-            {{ room["players"][i] }}, {{ room["showRole"][room["players"].index(session['userId'])][i] }} </p>
-    {% endfor %}
-    {% if isChosen[session['userId']] %}
-        <form action="" method=post class="center">
-            <p><input type="radio" name="quest" value="succeed"> Succeed </p>
-            <p><input type="radio" name="quest" value="failed"> Failed </p>
-            <input type=submit value="QUEST">
-        </form>
+        <p>You</p>
+        <p>{{room["showRole"][room["players"].index(session['userId'])][i]}}</p>
+    </div>
     {% else %}
-        <p> Please wait Knight to go on the quest </p>
+    <div class="player">
+        {% if isChosen[room["players"][i]] %}
+        <div class="onMission"></div>
+        {% endif %}
+        <p>{{room["players"][i]}}</p>
+        <p>{{room["showRole"][room["players"].index(session['userId'])][i]}}</p>
+    </div>
     {% endif %}
 </div>
+{% endfor %}
 {% endblock %}
