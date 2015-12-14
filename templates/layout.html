@@ -45,6 +45,7 @@
                                 <td> {{room["players"][i] }} </td>
                                 {% endfor %}
                             </tr>
+                            {% if "questRound" in room %}
                             {% for i in range(5*(room["questRound"]+2)) %}
                             {% if "chooseRecord" in room and i in room["chooseRecord"] %}
                             <tr>
@@ -63,6 +64,7 @@
                             </tr>
                             {% endif %}
                             {% endfor %}
+                            {% endif %}
                         </table>
                     </div>
                     {% block body %}{% endblock %}
