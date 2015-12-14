@@ -1,11 +1,11 @@
 {% extends "layout_static.html" %}
 {% block body %}
 <div class="col-12">
-    <div class="col-3">{{room["voteRound"]+1}}</div>
+    <div class="col-3">Vote round: {{room["voteRound"]+1}}</div>
     <form action="" method=post>
-        <div class="col-3"><input type=radio name="submit" value="AGREE">Agree</div>
-        <div class="col-3"><input type=radio name="submit" value="DISAGREE">Disagree</div>
-        <div class="col-3"><input type=submit name="submit" class="col-3" value="VOTE"></div>
+        <div class="col-3"><input type=radio name="vote" value="agree">Agree</div>
+        <div class="col-3"><input type=radio name="vote" value="disagree">Disagree</div>
+        <div class="col-3"><input type=submit class="col-3" value="VOTE"></div>
     </form>
 </div>
 {% for i in range(room["count"]) %}
