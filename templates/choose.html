@@ -41,10 +41,12 @@ function checkClick() {
         {% if room["players"][i] == session['userId'] %}
         <div class="player me">
             <p><input type="checkbox" value="{{room["players"][i]}}" name="proposal" onclick="return checkNum()">You</p>
+            <p>{{room["showRole"][room["players"].index(session['userId'])][i]}}</p>
         </div>
         {% else %}
         <div class="player">
             <p><input type="checkbox" name="proposal" value="{{room["players"][i]}}" onclick="return checkNum()">{{room["players"][i]}}</p>
+            <p>{{room["showRole"][room["players"].index(session['userId'])][i]}}</p>
         </div>
         {% endif %}
     </div>
