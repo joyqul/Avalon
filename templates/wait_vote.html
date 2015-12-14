@@ -1,28 +1,39 @@
-{% extends "inner.html" %}
+{% extends "layout.html" %}
 {% block body %}
-<div class="room">
-    <p> This is room {{ roomId }} </p>
-    {% for i in range(room["count"]) %}
-        {% if room["players"][i] == session['userId'] %}
-            <p class="me"> 
-        {% else %}
-            <p>
-        {% endif %}
-        {% if room["players"][room["arthur"]] == room["players"][i] %}
-            <img src="../../static/img/arthur.svg" height="30" width="30">
-        {%  else %}
-            <img src="../../static/img/arthur.svg" height="30" width="30" class="hide">
-        {% endif %}
-        {% if room["players"][i] in voted %}
-            {% if room["players"][i] in agreed %}
-                <img src="../../static/img/yes.svg" height="30" width="30">
-            {% else %}
-                <img src="../../static/img/no.svg" height="30" width="30">
-            {% endif %}
-        {% else %}
-            <img src="../../static/img/thinking.svg" height="30" width="30">
-        {% endif %}
-            {{ room["players"][i] }}, {{ room["showRole"][room["players"].index(session['userId'])][i] }} </p>
-    {% endfor %}
+<div class="col-12">
+    <div class="col-3">Vote round: {{room["voteRound"]+1}}</div>
 </div>
+{% for i in range(room["count"]) %}
+<div class="col-6 col-m-3">
+    {% if room["players"][i] == session['userId'] %}
+    <div class="player me">
+        {% if room["players"][i] in voted %}
+        {% if room["players"][i] in agreed %}
+        <div class="agree"></div>
+        {% else %}
+        <div class="disagree"></div>
+        {% endif %}
+        {% else %}
+        <div class="thinking"></div>
+        {% endif %}
+        <p>You</p>
+        <p>{{room["showRole"][room["players"].index(session['userId'])][i]}}</p>
+    </div>
+    {% else %}
+    <div class="player">
+        {% if room["players"][i] in voted %}
+        {% if room["players"][i] in agreed %}
+        <div class="agree"></div>
+        {% else %}
+        <div class="disagree"></div>
+        {% endif %}
+        {% else %}
+        <div class="thinking"></div>
+        {% endif %}
+        <p>{{room["players"][i]}}</p>
+        <p>{{room["showRole"][room["players"].index(session['userId'])][i]}}</p>
+    </div>
+    {% endif %}
+</div>
+{% endfor %}
 {% endblock %}
