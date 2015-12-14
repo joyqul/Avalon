@@ -32,7 +32,7 @@ function checkClick() {
 <form name="choose" action="" method=post>
     <div class="col-12">
         <div class="row">
-            <div class="col-6 col-m-3">vote round: {{room["voteRound"]}}</div>
+            <div class="col-6 col-m-3">vote round: {{room["voteRound"]+1}}</div>
             <div class="col-6 col-m-3"><input type=submit name="bt" value="CHOOSE" onclick="return checkClick()"></div>
         </div>
     </div>
