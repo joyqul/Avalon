@@ -279,7 +279,7 @@ def choose(roomId):
     if isArthur:
         return render_template("choose.html", roomId=roomId, room=now, chooseNumber=chooseNumber)
     else:
-        return render_template("choose_static.html", roomId=roomId, room=now, chooseNumber=chooseNumber)
+        return render_template("wait_choose.html", roomId=roomId, room=now, chooseNumber=chooseNumber)
     
 @app.route("/room/<int:roomId>/vote", methods=["POST", "GET"])
 def vote(roomId):
