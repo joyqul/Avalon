@@ -5,8 +5,6 @@
         <form action="" method=post>
             {% if isOwner and room["count"] >= 5 %}
             <div class="col-6 col-m-2"><input type=submit name="submit" value="START"></div>
-            {% else %}
-            <div class="col-6 col-m-2"></div>
             {% endif %}
             <div class="col-6 col-m-2"><input type=submit name="submit" value="EXIT"></div>
         </form>
@@ -15,12 +13,10 @@
 {% for player in room["players"] %}
 <div class="col-6 col-m-3">
     {% if player == session['userId'] %}
-    <div class="player me">
+    <div class="player me"> <p> You </p> </div>
     {% else %}
-    <div class="player">
+    <div class="player"> <p> {{player}} </p></div>
     {% endif %}
-        <p> {{player}} </p>
-    </div>
 </div>
 {% endfor %}
 {% endblock %}
