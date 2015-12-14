@@ -1,10 +1,46 @@
-{% extends "layout_static.html" %}
-{% block body %}
-<div id="content">
-    <h1>Create Room</h1>
-    <form action="" method=post class="center">
-        <h2><label>Name</label><input type=text name=roomname></h2>
-        <p><input type=submit value=Create> <a href="{{ url_for('roomList') }}">Exit</a></p>
-    </form>
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="../static/css/create.css">
+        <link href='https://fonts.googleapis.com/css?family=Cuprum:700,400' rel='stylesheet' type='text/css'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        <title>Avalon Online</title>
+    </head>
+    <body>
+        <header>
+        <h1>Avalon Online</h1>
+        <div class="menu"></div>
+        </header>
+        <nav>
+        <ul>
+            <li><a href="#">ID: {{userId}} </a></li>
+            <li><a href="#">Win: {{win}}</a></li>
+            <li><a href="#">Lose: {{lose}}</a></li>
+            <li><a href="{{ url_for('root') }}">Home</a></li>
+            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+        </ul>
+        </nav>
+        <div class="row">
+            <div class="col-12">
+                <section>
+                <div class="row">
+                    <div class="col-1"></div>
+                    <form action="" method=post class="col-10">
+                        <h2><div class="box"><img src="../static/images/room.svg" alt="Room"></div> 
+                            <input type=text name=roomname placeholder="Room Name"></h2>
+                        <p><input type=submit value=Create></p>
+                    </form>
+                    <div class="col-1"></div>
+                    <p class="col-12"><a href="{{ url_for('roomList') }}">Exit</a></p>
+                </div>
+                </section>
+            </div>
+            <div class="col-12">
+                <footer><p>2015 Powered by Deepshine, Joyqul</p></footer>
+            </div>
+        </div>
+    </body>
+</html>
