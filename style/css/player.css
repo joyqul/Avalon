@@ -1,0 +1,13 @@
+.player {
+    position: relative;
+    background: #F99;
+    padding: 0px 10px;
+    min-height: 50px;
+    line-height: 50px;
+    vertical-align: middle;
+}
+
+.me {
+    background: #99F;
+    color: #FFF;
+}
