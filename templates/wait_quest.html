@@ -2,30 +2,29 @@
 {% block body %}
 <div class="col-12">
     <div class="col-3">Vote round: {{room["voteRound"]+1}}</div>
-    <form action="" method=post>
-        <div class="col-3"><input type=radio name="quest" value="succeed">Succeed</div>
-        <div class="col-3"><input type=radio name="quest" value="failed">Failed</div>
-        <div class="col-3"><input type=submit class="col-3" value="QUEST"></div>
-    </form>
 </div>
 {% for i in range(room["count"]) %}
 <div class="col-6 col-m-3">
     {% if room["players"][i] == session['userId'] %}
     <div class="player me">
+        {% if isChosen[room["players"][i]] %}
         {% if room["players"][i] in voted %}
         <div class="vote"></div>
         {% else %}
         <div class="thinking"></div>
+        {% endif %}
         {% endif %}
         <p>You</p>
         <p>{{room["showRole"][room["players"].index(session['userId'])][i]}}</p>
     </div>
     {% else %}
     <div class="player">
+        {% if isChosen[room["players"][i]] %}
         {% if room["players"][i] in voted %}
         <div class="vote"></div>
         {% else %}
         <div class="thinking"></div>
+        {% endif %}
         {% endif %}
         <p>{{room["players"][i]}}</p>
         <p>{{room["showRole"][room["players"].index(session['userId'])][i]}}</p>
@@ -33,4 +32,34 @@
     {% endif %}
 </div>
 {% endfor %}
+{% endblock %}
+{% extends "inner.html" %}
+{% block body %}
+<div class="room">
+    <p> This is room {{ roomId }} </p>
+    {% for i in range(room["count"]) %}
+        {% if room["players"][i] == session['userId'] %}
+            <p class="me"> 
+        {% else %}
+            <p>
+        {% endif %}
+        {% if room["players"][room["arthur"]] == room["players"][i] %}
+            <img src="../../static/img/arthur.svg" height="30" width="30">
+        {%  else %}
+            <img src="../../static/img/arthur.svg" height="30" width="30" class="hide">
+        {% endif %}
+        {% if isChosen[room["players"][i]] %}
+            <img src="../../static/img/onMission.svg" height="30" width="30">
+            {% if room["players"][i] in voted %}
+                <img src="../../static/img/vote.svg" height="30" width="30">
+            {% else %}
+                <img src="../../static/img/thinking.svg" height="30" width="30">
+            {% endif %}
+        {% else %}
+            <img src="../../static/img/onMission.svg" height="30" width="30" class="hide">
+            <img src="../../static/img/vote.svg" height="30" width="30" class="hide">
+        {% endif %}
+            {{ room["players"][i] }}, {{ room["showRole"][room["players"].index(session['userId'])][i] }} </p>
+    {% endfor %}
+</div>
 {% endblock %}
