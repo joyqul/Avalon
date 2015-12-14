@@ -68,7 +68,15 @@
                             {% if "questRound" in room %}
                             {% for i in range(5*(room["questRound"]+2)) %}
                             {% if "chooseRecord" in room and i in room["chooseRecord"] %}
+                            {% if i+1 not in room["chooseRecord"] and i//5 in room["questResult"] %}
+                            {% if room["questResult"][i//5] %}
+                            <tr class="win">
+                            {% else %}
+                            <tr class="lose">
+                            {% endif %}
+                            {% else %}
                             <tr>
+                            {% endif %}
                                 <td>{{i//5+1}}-{{i%5+1}}</td>
                                 {% for j in range(room["count"]) %}
                                 {% if room["players"][j] in room["voteResult"][i] %}
