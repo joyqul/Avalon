@@ -1,18 +1,20 @@
-{% extends "inner.html" %}
+{% extends "layout.html" %}
 {% block body %}
-<div class="room">
-    <p> This is room {{ roomId }} </p>
-    {% if isAssassin %}
-        <form action="" method=post class="center">
-            {% for player in room["players"] %}
-                {% if player not in room["minions"] %}
-                    <p><input type="radio" name="kill" value="{{player}}"> {{player}} </p>
-                {% endif %}
-            {% endfor %}
-            <input type=submit value="KILL">
-        </form>
-    {% else %}
-        <p> wait assassin to chose merlin </p>
-    {% endif %}
+{% if isAssassin %}
+<div class="col-6 col-m-9">
+    Let's guess who is Merlin!
 </div>
+<form action="" method=post>
+    <div class="col-6 col-m-3"><input type=submit value="KILL"></div>
+    {% for player in room["players"] %}
+    {% if player not in room["minions"] %}
+    <div class="col-6 col-m-3">
+        <div class="player"><input type="radio" name="kill" value="{{player}}"> {{player}}</div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</form>
+{% else %}
+<div class="col-12">Please wait assassin to chose merlin </div>
+{% endif %}
 {% endblock %}
