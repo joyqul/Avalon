@@ -1,30 +1,24 @@
-{% extends "inner_static.html" %}
+{% extends "layout_static.html" %}
 {% block body %}
-<div class="room">
-    <p> This is room {{ roomId }}, vote round {{room["voteRound"]+1}} </p>
-    {% for i in range(room["count"]) %}
-        {% if room["players"][i] == session['userId'] %}
-            <p class="me"> 
-        {% else %}
-            <p>
-        {% endif %}
-        {% if room["players"][room["arthur"]] == room["players"][i] %}
-            <img src="../../static/img/arthur.svg" height="30" width="30">
-        {%  else %}
-            <img src="../../static/img/arthur.svg" height="30" width="30" class="hide">
-        {% endif %}
+{% for i in range(room["count"]) %}
+<div class="col-6 col-m-3">
+    {% if room["players"][i] == session['userId'] %}
+    <div class="player me">
         {% if isChosen[room["players"][i]] %}
-            <img src="../../static/img/onMission.svg" height="30" width="30">
-        {% else %}
-            <img src="../../static/img/onMission.svg" height="30" width="30" class="hide">
+        <div class="onMission"></div>
         {% endif %}
-            {{ room["players"][i] }}, {{ room["showRole"][room["players"].index(session['userId'])][i] }}
-        </p>
-    {% endfor %}
-    <form action="" method=post class="center">
-        <p><input type="radio" name="vote" value="agree"> Agree </p>
-        <p><input type="radio" name="vote" value="disagree"> Disagree </p>
-        <input type=submit value="VOTE">
-    </form>
+        <p>You</p>
+        <p>{{room["showRole"][room["players"].index(session['userId'])][i]}}</p>
+    </div>
+    {% else %}
+    <div class="player">
+        {% if isChosen[room["players"][i]] %}
+        <div class="onMission"></div>
+        {% endif %}
+        <p>{{room["players"][i]}}</p>
+        <p>{{room["showRole"][room["players"].index(session['userId'])][i]}}</p>
+    </div>
+    {% endif %}
 </div>
+{% endfor %}
 {% endblock %}
