@@ -1,19 +1,26 @@
 {% extends "layout.html" %}
 {% block body %}
-<div class="room">
-    <p> This is room {{ roomId }} </p>
-    {% for player in room["players"] %}
-        {% if player == session['userId'] %}
-            <p class="me"> {{player}} </p>
-        {% else %}
-            <p> {{player}} </p>
-        {% endif %}
-    {% endfor %}
-    <form action="" method=post class="center">
-    {% if isOwner and room["count"] >= 5 %}
-        <input type=submit name="submit" value="START">
-    {% endif %}
-        <input type=submit name="submit" value="EXIT">
-    </form>
+<div class="col-12">
+    <div class="row">
+        <form action="" method=post>
+            {% if isOwner and room["count"] >= 5 %}
+            <div class="col-6 col-m-2"><input type=submit name="submit" value="START"></div>
+            {% else %}
+            <div class="col-6 col-m-1"></div>
+            {% endif %}
+            <div class="col-6 col-m-2"><input type=submit name="submit" value="EXIT"></div>
+        </form>
+    </div>
 </div>
+{% for player in room["players"] %}
+<div class="col-6 col-m-3">
+    {% if player == session['userId'] %}
+    <div class="player me">
+    {% else %}
+    <div class="player">
+    {% endif %}
+        <p> {{player}} </p>
+    </div>
+</div>
+{% endfor %}
 {% endblock %}

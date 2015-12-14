@@ -136,6 +136,7 @@ def room(roomId):
         return redirect(url_for("roundResult", roomId=roomId))
     if now["state"] == "over":
         return redirect(url_for("gameResult", roomId=roomId))
+    now["chooseNumber"] = ['?','?','?','?','?']
     if request.method == "POST" and request.form["submit"] == "START":
         if now["count"] >= 5:
             now["state"] = "choose"
@@ -147,6 +148,7 @@ def room(roomId):
             now["voteResult"] = {}
             now["questResult"] = []
             now["chooseRecord"] = {}
+            now["chooseNumber"] = list(assignCount[now["count"]-5])
             global roles
             role = list(roles[now["count"]-5])
             random.shuffle(role)
