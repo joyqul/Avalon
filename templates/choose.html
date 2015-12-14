@@ -37,7 +37,7 @@ function checkClick() {
         </div>
     </div>
     {% for i in range(room["count"]) %}
-    <div class="col-6">
+    <div class="col-6 col-m-3">
         {% if room["players"][i] == session['userId'] %}
         <div class="player me">
             <p><input type="checkbox" value="{{room["players"][i]}}" name="proposal" onclick="return checkNum()">You</p>

@@ -3,16 +3,20 @@
 <div class="col-12">
     <p>Please wait Arthur to choose. [vote round {{room["voteRound"]+1}}]</p>
 </div>
-{% for player in room["players"] %}
+{% for i in range(room["count"]) %}
 <div class="col-6 col-m-3">
-    {% if player == session['userId'] %}
-    <div class="player me"> <p> You </p> </div>
+    {% if room["players"][i] == session['userId'] %}
+    <div class="player me">
+        <p>You</p>
+        <p>{{room["showRole"][room["players"].index(session['userId'])][i]}}</p>
+    </div>
     {% else %}
-    <div class="player"> 
-        {% if room["players"][room["arthur"]] == player %}
+    <div class="player">
+        {% if room["players"][room["arthur"]] == room["players"][i] %}
         <div class="arthur"></div>
         {% endif %}
-        <p> {{player}} </p>
+        <p>{{room["players"][i]}}</p>
+        <p>{{room["showRole"][room["players"].index(session['userId'])][i]}}</p>
     </div>
     {% endif %}
 </div>
