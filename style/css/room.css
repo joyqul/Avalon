@@ -3,6 +3,7 @@
 @import url('menu.css');
 @import url('inputData.css');
 @import url('player.css');
+@import url('rwd.css');
 
 * {
     text-align: center;
