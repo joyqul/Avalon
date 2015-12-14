@@ -29,11 +29,11 @@
     {% endfor %}
     </tr>
     {% for i in range(5*(room["questRound"]+2)) %}
-        {% if i in room["voteResult"] %}
+        {% if i in room["chooseRecord"] %}
             <tr>
                 <td>{{i//5+1}}-{{i%5+1}}</td>
                 {% for j in range(room["count"]) %}
-                    {% if room["players"][j] in room["voteResult"][i] %}
+                    {% if room["chooseRecord"][i][room["players"][j]] == True %}
                         <td>O</td>
                     {% else %}
                         <td>X</td>
