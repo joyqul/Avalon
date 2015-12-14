@@ -1,0 +1,83 @@
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-family: 'Cuprum', sans-serif;
+}
+
+.row:after {
+    content:"";
+    clear: both;
+    display: block;
+}
+
+[class*="col-"] {
+    float: left;
+    padding: 15px;
+    width: 100%;
+}
+
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+h1 {
+    color: #377BA8;
+}
+
+body {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    background: #888;
+    background-image: url("../images/texture.png");
+}
+
+section {
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    background:rgba(255,255,255,.8);
+    color: #377BA8;
+}
+
+footer {
+    position: relative;
+    background: rgba(0, 0, 0, .8);
+    padding: 0;
+    width: 100%;
+    color: #FFF;
+    height: 50px;
+    margin: 0;
+}
+
+footer p {
+    line-height: 50px;
+    margin: 0;
+    text-align: center;
+    padding-right: 15px;
+}
+
+/*********** origin ************/
+.page           { margin: 2em auto; width: 35em; border: 5px solid #ccc;
+                  padding: 0.8em; background: white; }
+.entries        { list-style: none; margin: 0; padding: 0; }
+.entries li     { margin: 0.8em 1.2em; }
+.entries li h2  { margin-left: -1em; }
+.add-entry      { font-size: 0.9em; border-bottom: 1px solid #ccc; }
+.add-entry dl   { font-weight: bold; }
+.metanav        { text-align: right; font-size: 0.8em; padding: 0.3em;
+                  margin-bottom: 1em; background: #fafafa; }
+.flash          { background: #cee5F5; padding: 0.5em;
+                  border: 1px solid #aacbe2; }
+.error          { background: #f0d6d6; padding: 0.5em; }

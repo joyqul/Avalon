@@ -1,0 +1,125 @@
+@import url('normalize.css');
+@import url('main.css');
+@import url('menu.css');
+@import url('inputData.css');
+@import url('player.css');
+@import url('rwd.css');
+
+* {
+    text-align: center;
+}
+
+section input[type="submit"] {
+    padding: 0;
+    width: 100%;
+}
+
+section input[type="checkbox"], section input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+.circle {
+    display: inline-block;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, .4);
+    color: #FFF;
+    border: 1px solid #000;
+}
+
+.history {
+    background: rgba(0, 0, 0, .4);
+    border: 1px solid #000;
+    color: #FFF;
+    width: 100px;
+    float: right;
+    margin: 0px 20px;
+}
+
+.history:hover {
+	cursor:pointer;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    position: relative;
+    padding: 15px;
+}
+
+table {
+    width: 100%;
+    color: #FFF;
+    background: rgba(0, 0, 0, .4);
+    display: none;
+}
+
+.vote, .yes, .no, .thinking, .onMission, .choose, .agree, .disagree {
+    background-image: url("../images/agree.svg");
+    background-repeat: no-repeat;
+    -moz-background-size: 100%;
+    -webkit-background-size: 100%;
+    background-size: 20px;
+}
+
+.disagree {
+    background-image: url("../images/disagree.svg");
+    
+}
+
+.vote, .onMission, .thinking, .yes, .no {
+    position: absolute;
+    background-image: url("../images/thinking.svg");
+    top: 0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    z-index:10;
+}
+
+.yes {
+    background-image: url("../images/yes.svg");
+}
+
+.no {
+    background-image: url("../images/no.svg");
+}
+
+.onMission {
+    background-image: url("../images/onMission.svg");
+}
+
+.vote {
+    background-image: url("../images/vote.svg");
+}
+
+.choose {
+    position: absolute;
+    top:0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 0, .2);
+    border-radius: 0;
+}
+
+.win {
+    background: rgba(0, 0, 255, .6);
+}
+
+.lose {
+    background: rgba(255, 0, 0, .6);
+}
+
+.now {
+    background: rgba(0, 0, 0, .8);
+}

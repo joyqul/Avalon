@@ -1,15 +1,15 @@
-{% extends "layout_static.html" %}
+{% extends "init.html" %}
 {% block body %}
-<div id="content">
-    <h1>Sign Up</h1>
-    {% if error %}
-        <p class=error><strong>Error:</strong> {{ error }}
-    {% endif %}
-    <form action="" method=post class="center">
-        <h2><label>Account</label><input type=text name=username value="{{ request.form.username }}"></h2>
-        <h2><label>Password</label><input type=password name=password></h2>
-        <h2><label>Retype</label><input type=password name=retypePassword></h2>
-        <p><input type=submit value=SignUp> <a href="{{ url_for('login') }}">Have account?</a></p>
-    </form>
-</div>
+<div class="col-1"></div>
+<form action="" method=post class="col-10">
+    <h2><div class="box"><img src="../static/images/account.svg" alt="Account"></div>
+        <input type=text name=username placeholder="Account" value="{{ request.form.username }}"></h2>
+    <h2><div class="box"><img src="../static/images/password.svg" alt="Password"></div>
+        <input type=password name=password placeholder="Password"></h2>
+    <h2><div class="box"><img src="../static/images/password.svg" alt="Retype">
+    </div> <input type=password name=password placeholder="Retype"></h2>
+    <p><input type=submit value=SignUp></p>
+</form>
+<div class="col-1"></div>
+<p class="col-12"><a href="{{ url_for('login') }}">Have an account?</a></p>
 {% endblock %}

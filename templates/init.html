@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Avalon Online</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="../static/css/login.css">
+        <link href='https://fonts.googleapis.com/css?family=Cuprum:700,400' rel='stylesheet' type='text/css'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    </head>
+    <body>
+        <div class="row">
+            <div class="col-12">
+                <section>
+                <div class="row">
+                    <h1 class="col-12">Avalon Online</h1>
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <ul class=flashes>
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}
+                    {% if error %}
+                    <p class=error><strong>Error:</strong> {{ error }}
+                    {% endif %}
+                    {% block body %}{% endblock %}
+                </div>
+                </section>
+            </div>
+            <div class="col-12">
+                <footer><p>2015 Powered by Deepshine, Joyqul</p></footer>
+            </div>
+        </div>
+    </body>
+</html>

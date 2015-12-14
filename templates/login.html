@@ -1,14 +1,13 @@
-{% extends "layout_static.html" %}
+{% extends "init.html" %}
 {% block body %}
-<div id="content">
-    <h1>Log In</h1>
-    {% if error %}
-        <p class=error><strong>Error:</strong> {{ error }}
-    {% endif %}
-    <form action="" method=post class="center">
-        <h2><label>Account</label><input type=text name=username value="{{ request.form.username }}"></h2>
-        <h2><label>Password</label><input type=password name=password></h2>
-        <p><input type=submit value=Login> <a href="{{ url_for('signUp') }}">Create Account</a></p>
-    </form>
-</div>
+<div class="col-1"></div>
+<form action="" method=post class="col-10">
+    <h2><div class="box"><img src="../images/account.svg" alt="Account"></div>
+        <input type=text name=username placeholder="Account" value="{{ request.form.username }}"></h2>
+    <h2><div class="box"><img src="../images/password.svg" alt="Password"></div>
+        <input type=password name=password placeholder="Password"></h2>
+    <p><input type=submit value=Login></p>
+</form>
+<div class="col-1"></div>
+<p class="col-12">... or <a href="{{ url_for('signUp') }}">signup</a></p>
 {% endblock %}
