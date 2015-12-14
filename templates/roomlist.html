@@ -1,23 +1,51 @@
-{% extends "layout.html" %}
-{% block body %}
-<div id="container">
-    <div id="context">
-        <div id="top">
-            <a href="{{ url_for('createRoom') }}">Create room</a>
-        </div>
-        {% for roomId in rooms if rooms[roomId]["count"]<10 and rooms[roomId]["state"]=="prepare" %}
-            <div id="outerbox">
-                <h2>{{ rooms[roomId]["name"] }}</h2>
-                <p>Create by: {{ rooms[roomId]["owner"] }}</p>
-                <p>Player: {{ rooms[roomId]["count"] }}</p>
-                <p>Room ID: {{ rooms[roomId]["id"] }} <a href="{{ url_for('room', roomId=roomId) }}">Join</a></p>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="refresh" content="5" />
+        <link rel="stylesheet" type="text/css" href="css/roomlist.css">
+        <link href='https://fonts.googleapis.com/css?family=Cuprum:700,400' rel='stylesheet' type='text/css'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        <title>Avalon Online</title>
+    </head>
+    <body>
+        <header>
+        <h1>Avalon Online</h1>
+        <div class="menu"></div>
+        </header>
+        <nav>
+        <ul>
+            <li><a href="#">ID: {{userId}} </a></li>
+            <li><a href="#">Win: {{win}}</a></li>
+            <li><a href="#">Lose: {{lose}}</a></li>
+            <li><a href="{{ url_for('root') }}">Home</a></li>
+            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+        </ul>
+        </nav>
+        <div class="row">
+            <div class="col-12">
+                <section>
+                <div class="row">
+                    <div class="col-12"> <a href="{{ url_for('createRoom') }}">Create room</a> </div>
+                    {% for roomId in rooms if rooms[roomId]["count"]<10 and rooms[roomId]["state"]=="prepare" %}
+                    <div class="col-12">
+                        <article>
+                        <h2>{{ rooms[roomId]["name"] }}</h2>
+                        <p>Create by: {{ rooms[roomId]["owner"] }}</p>
+                        <p>Player: {{ rooms[roomId]["count"] }}</p>
+                        <p>Room ID: {{ rooms[roomId]["id"] }}</p> 
+                        <p><a href="{{ url_for('room', roomId=roomId) }}">Join</a></p>
+                        </article>
+                    </div>
+                    {% endfor %}
+                </div>
+                </section>
             </div>
-        {% endfor %}
-    </div>
-    <div id="sidebar">
-        <h2>{{ userId }}</h2>
-        <p>Win: {{ win }}</p>
-        <p>Lose: {{ lose }}</p>
-    </div>
-</div>
-{% endblock %}
+            <div class="col-12">
+                <footer><p>2015 Powered by Deepshine, Joyqul</p></footer>
+            </div>
+        </div>
+    </body>
+</html>
