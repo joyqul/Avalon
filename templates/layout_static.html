@@ -37,11 +37,11 @@
                         {% endif %}
                         {% endfor %}
 
-                        {% for i in range(5-len(room["questResult"])) %}
+                        {% for i in range(5-{{room["questResult"]|length}}) %}
                         {% if i == 0 %}
-                        <div class="circle now">{{ room['chooseNumber'][i+len(room["questResult"])] }}</div>
+                        <div class="circle now">{{ room['chooseNumber'][i+{{room["questResult"]|length}})] }}</div>
                         {% else %}
-                        <div class="circle">{{ room['chooseNumber'][i+len(room["questResult"])] }}</div>
+                        <div class="circle">{{ room['chooseNumber'][i+{{room["questResult"])|length}}] }}</div>
                         {% endif %}
                         {% endfor %}
 
