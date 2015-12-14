@@ -36,6 +36,7 @@
                         {% else %}
                         <div class="circle lose">{{ room['chooseNumber'][i] }}</div>
                         {% endif %}
+                        {% endfor %}
 
                         {% for i in range(5-len(room["questResult"])) %}
                         {% if i == 0 %}
@@ -44,6 +45,7 @@
                         <div class="circle">{{ room['chooseNumber'][i+len(room["questResult"])] }}</div>
                         {% endif %}
                         {% endfor %}
+
                         {% else %}
                         <div class="circle">{{ room['chooseNumber'][0] }}</div>
                         <div class="circle">{{ room['chooseNumber'][1] }}</div>
@@ -71,27 +73,27 @@
                                 {% for j in range(room["count"]) %}
                                 {% if room["players"][j] in room["voteResult"][i] %}
                                 <td class="agree">
-                                {% else %}
-                                <td class="disagree">
+                                    {% else %}
+                                    <td class="disagree">
+                                        {% endif %}
+                                        {% if room["chooseRecord"][i][room["players"][j]] == True %}
+                                        O
+                                        {% endif %}
+                                    </td>
+                                    {% endfor %}
+                                </tr>
                                 {% endif %}
-                                {% if room["chooseRecord"][i][room["players"][j]] == True %}
-                                O
-                                {% endif %}
-                                </td>
                                 {% endfor %}
-                            </tr>
-                            {% endif %}
-                            {% endfor %}
-                            {% endif %}
-                        </table>
+                                {% endif %}
+                            </table>
+                        </div>
+                        {% block body %}{% endblock %}
                     </div>
-                    {% block body %}{% endblock %}
+                    </section>
                 </div>
-                </section>
+                <div class="col-12">
+                    <footer><p>2015 Powered by Deepshine, Joyqul</p></footer>
+                </div>
             </div>
-            <div class="col-12">
-                <footer><p>2015 Powered by Deepshine, Joyqul</p></footer>
-            </div>
-        </div>
-    </body>
-</html>
+        </body>
+    </html>
