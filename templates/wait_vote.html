@@ -9,9 +9,9 @@
     <div class="player me">
         {% if room["players"][i] in voted %}
         {% if room["players"][i] in agreed %}
-        <div class="agree"></div>
+        <div class="yes"></div>
         {% else %}
-        <div class="disagree"></div>
+        <div class="no"></div>
         {% endif %}
         {% else %}
         <div class="thinking"></div>
@@ -23,9 +23,9 @@
     <div class="player">
         {% if room["players"][i] in voted %}
         {% if room["players"][i] in agreed %}
-        <div class="agree"></div>
+        <div class="yes"></div>
         {% else %}
-        <div class="disagree"></div>
+        <div class="no"></div>
         {% endif %}
         {% else %}
         <div class="thinking"></div>
