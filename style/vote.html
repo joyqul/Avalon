@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/room.css">
+        <link href='https://fonts.googleapis.com/css?family=Cuprum:700,400' rel='stylesheet' type='text/css'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        <title>Avalon Online</title>
+    </head>
+    <body>
+        <header>
+            <h1>Room Name</h1>
+            <div class="menu"></div>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="#">ID: XXX</a></li>
+                <li><a href="#">Win: XX</a></li>
+                <li><a href="#">Lose: XX</a></li>
+                <li><a href="roomlist.html">Home</a></li>
+                <li><a href="index.html">Log Out</a></li>
+            </ul>
+        </nav>
+        <div class="row">
+            <div class="col-12">
+                <section>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="circle">2</div>
+                            <div class="circle">3</div>
+                            <div class="circle">2</div>
+                            <div class="circle">3</div>
+                            <div class="circle">3</div>
+                        </div>
+                        <div class="col-6 history">
+                            History
+                        </div>
+                        <div class="col-12">
+                            <table>
+                                <tr>
+                                    <td>Arthur</td>
+                                    <td>a</td>
+                                    <td>b</td>
+                                    <td>c</td>
+                                    <td>c</td>
+                                    <td>c</td>
+                                </tr>
+                                <tr>
+                                    <td>a</td>
+                                    <td class="agree">O</td>
+                                    <td class="disagree"></td>
+                                    <td class="disagree"></td>
+                                    <td class="disagree"></td>
+                                    <td class="agree">O</td>
+                                </tr>
+                                <tr class="win">
+                                    <td>b</td>
+                                    <td class="agree"></td>
+                                    <td class="disagree">O</td>
+                                    <td class="agree"></td>
+                                    <td class="agree"></td>
+                                    <td class="agree">O</td>
+                                </tr>
+                                <tr class="lose">
+                                    <td>c</td>
+                                    <td class="disagree"></td>
+                                    <td class="agree">O</td>
+                                    <td class="agree">O</td>
+                                    <td class="agree"></td>
+                                    <td class="agree">O</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-3">vote round: 2</div>
+                                <form action="" method=post>
+                                    <div class="col-3"><input type=radio name="submit" value="AGREE">Agree</div>
+                                    <div class="col-3"><input type=radio name="submit" value="DISAGREE">Disagree</div>
+                                    <div class="col-3"><input type=submit name="submit" class="col-3" value="VOTE"></div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="player">
+                                <div class="onMission"></div>
+                                <p>1-Name</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="player me">
+                                <div class="onMission"></div>
+                                <p>2-You</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="player">
+                                <div class="onMission"></div>
+                                <p>3-A</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="player">
+                                <p>4-B</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="player">
+                                <p>5-CCC</p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <a href="wait.html">Go to wait page</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-12">
+                <footer><p>2015 Powered by Deepshine, Joyqul</p></footer>
+            </div>
+        </div>
+    </body>
+</html>
