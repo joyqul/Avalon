@@ -1,0 +1,4 @@
+DATABASE = "avalon.db"
+DEBUG = True
+TESTING = False
+SECRET_KEY = "TOPSECRET"
